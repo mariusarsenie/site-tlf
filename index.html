@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bijuterii Elegante</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fdf6f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #b88a44;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            position: relative;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        #cart-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            color: #b88a44;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .product {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 280px;
+            text-align: center;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+        }
+
+        .product h3 {
+            margin: 15px 0 5px;
+        }
+
+        .product p {
+            color: #666;
+            padding: 0 10px 10px;
+        }
+
+        .product span {
+            font-weight: bold;
+            color: #b88a44;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+
+        .product button {
+            background-color: #b88a44;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .product button:hover {
+            background-color: #a37635;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #b88a44;
+            color: white;
+            margin-top: 40px;
+        }
+
+        #cart {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            width: 300px;
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            z-index: 999;
+        }
+
+        #cart h2 {
+            margin-top: 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #k14-products, #silver-products, #other-products {
+            display: none;
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        /* 🟡 Responsive pentru telefon */
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 10px;
+            }
+
+            #cart-button {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+
+            .container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding: 10px;
+            }
+
+            .product {
+                width: 90%;
+            }
+
+            #cart {
+                width: 90%;
+                right: 5%;
+                top: 80px;
+                font-size: 14px;
+            }
+
+            .product p {
+                font-size: 14px;
+            }
+
+            .product h3 {
+                font-size: 16px;
+            }
+
+            .product button {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Bijuterii Elegante</h1>
+    <p>Strălucire și rafinament pentru fiecare moment</p>
+    <div id="cart-button" onclick="toggleCart()">🛒 Coș (<span id="cart-count">0</span>)</div>
+</header>
+
+<div class="container">
+    <div class="product">
+        <img src="https://tse4.mm.bing.net/th?id=OIP.ieqspwPOhvpT9Ww0Ap4dZwHaHa&pid=Api" alt="Inel aur">
+        <h3>Inel din Aur 14K</h3>
+        <p>Un inel delicat cu mesajul „Te iubesc”.</p>
+        <button onclick="showK14Products()">Vezi bijuterii 14K</button>
+    </div>
+    <div class="product">
+        <img src="https://tse1.mm.bing.net/th?id=OIP.QYKvDYmE15I0EUOZ1O6reQHaHa&pid=Api" alt="Set Argint">
+        <h3>Set Argint 925</h3>
+        <p>Set elegant cu smaralde și diamante </p>
+        <button onclick="showSilverProducts()">Vezi bijuterii Argint</button>
+    </div>
+    <div class="product">
+        <img src="cdqz122-goldred (1)-1000x1000.jpg" alt="Colier Pietre">
+        <h3>Colier cu Pietre</h3>
+        <p>Colier rafinat cu pietre prețioase colorate.</p>
+        <span>Preț: 850 RON</span>
+        <br><br>
+        <button onclick="addToCart('Colier cu Pietre', 850)">Adaugă în coș</button>
+    </div>
+    <div class="product">
+        <img src="https://tse3.mm.bing.net/th?id=OIP.TldfFeCWbhjNUXQ6K57VuQHaHa&pid=Api" alt="Set Romantic">
+        <h3>Set Romantic</h3>
+        <p>Set bijuterii cu pietre strălucitoare artificiale.</p>
+        <span>Preț: 720 RON</span>
+        <br><br>
+        <button onclick="addToCart('Set Romantic', 720)">Adaugă în coș</button>
+    </div>
+</div>
+
+<!-- Secțiuni ascunse pentru aur și argint -->
+<div id="k14-products" class="hidden">
+    <h2>Bijuterii din Aur 14K</h2>
+    <div class="container">
+        <div class="product">
+            <img src="inel-de-logodna-din-aur-14k-galben-si-alb-te-iubesc-il16425-42.jpg" alt="Inel aur">
+            <h3>Inel din Aur 14K</h3>
+            <p>Un inel delicat cu mesajul „Te iubesc”.</p>
+            <span>Preț: 1200 RON</span>
+            <br><br>
+            <button onclick="addToCart('Inel din Aur 14K', 1200)">Adaugă în coș</button>
+        </div>
+        <div class="product">
+            <img src="descărcare (11).jpg" alt="Brățară aur">
+            <h3>Brățară din Aur 14K</h3>
+            <p>Brățară elegantă din aur 14K cu design modern.</p>
+            <span>Preț: 1500 RON</span>
+            <br><br>
+            <button onclick="addToCart('Brățară din Aur 14K', 1500)">Adaugă în coș</button>
+        </div>
+        <div class="product">
+            <img src="22985-ID22985.webp" alt="Colier aur">
+            <h3>Colier din aur 14K</h3>
+            <p>Colier din aur elegant, cu detalii fine.</p>
+            <span>Preț: 950 RON</span>
+            <br><br>
+            <button onclick="addToCart('Colier din Aur 14K', 950)">Adaugă în coș</button>
+        </div>
+    </div>
+</div>
+
+<div id="silver-products" class="hidden">
+    <h2>Bijuterii din Argint 925</h2>
+    <div class="container">
+        <div class="product">
+            <img src="3E07E8D5-40A3-48E0-B6A7-92DF10B2A9AD.jpeg" alt="Set Argint">
+            <h3>Set Argint 925</h3>
+            <p>Set elegant din argint cu diamante.</p>
+            <span>Preț: 950 RON</span>
+            <br><br>
+            <button onclick="addToCart('Set Argint 925', 950)">Adaugă în coș</button>
+        </div>
+        <div class="product">
+            <img src="brataracuban.webp" alt="Brățară Argint">
+            <h3>Brățară Argint 925</h3>
+            <p>Brățară din argint</p>
+            <span>Preț: 700 RON</span>
+            <br><br>
+            <button onclick="addToCart('Brățară Argint 925', 700)">Adaugă în coș</button>
+        </div>
+        <div class="product">
+            <img src="lant-argint-barbati-gros-cuban-65-cm-151-grame-2671249272.webp" alt="Lanț Argint">
+            <h3>Lanț Argint 925</h3>
+            <p>Lanț argint 925.</p>
+            <span>Preț: 1800 RON</span>
+            <br><br>
+            <button onclick="addToCart('Lanț argint cudetalii fine', 1800)">Adaugă în coș</button>
+        </div>
+    </div>
+</div>
+
+<!-- Coș cumpărături -->
+<div id="cart" class="hidden">
+    <h2>Coșul tău</h2>
+    <ul id="cart-items"></ul>
+    <p>Total: <span id="cart-total">0</span> RON</p>
+</div>
+
+<footer>
+    <p>&copy; 2025 Bijuterii Elegante. Toate drepturile rezervate.</p>
+</footer>
+
+<script>
+    let cart = [];
+
+    function addToCart(name, price) {
+        cart.push({ name, price });
+        updateCart();
+    }
+
+    function updateCart() {
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const cartCount = document.getElementById('cart-count');
+
+        cartItems.innerHTML = '';
+        let total = 0;
+
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.name} - ${item.price} RON`;
+            cartItems.appendChild(li);
+            total += item.price;
+        });
+
+        cartTotal.textContent = total;
+        cartCount.textContent = cart.length;
+    }
+
+    function toggleCart() {
+        const cartDiv = document.getElementById('cart');
+        cartDiv.classList.toggle('hidden');
+    }
+
+    function showK14Products() {
+        document.getElementById('k14-products').style.display = 'block';
+        document.getElementById('silver-products').style.display = 'none';
+    }
+
+    function showSilverProducts() {
+        document.getElementById('silver-products').style.display = 'block';
+        document.getElementById('k14-products').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
