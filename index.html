@@ -3,114 +3,97 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nunta Noastră</title>
+  <title>Nunta Noastră - Poze</title>
+  <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #fdf6f8;
-      color: #4a154b;
+      background-color: #fff0f9;
+      color: #5a005a;
+      margin: 0;
+      padding: 0;
     }
 
     header {
-      background-color: #a24fa3;
+      background-color: #d86db4;
       color: white;
       text-align: center;
-      padding: 30px 10px;
+      padding: 30px 20px;
     }
 
-    h1, h2 {
+    h1 {
       margin: 0;
-    }
-
-    .intro {
-      padding: 20px;
-      text-align: center;
+      font-size: 2.5em;
     }
 
     .upload-section {
-      background: #fff0ff;
-      padding: 20px;
       text-align: center;
+      margin: 40px 20px;
     }
 
-    input[type="file"] {
-      margin-top: 10px;
-    }
-
-    .gallery {
+    #gallery {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 15px;
+      gap: 20px;
       padding: 20px;
     }
 
-    .gallery img {
+    .photo {
       width: 200px;
-      height: auto;
-      border-radius: 10px;
-      border: 3px solid #a24fa3;
+      height: 200px;
       object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
     footer {
-      background-color: #a24fa3;
+      background-color: #d86db4;
       color: white;
       text-align: center;
-      padding: 15px;
-      margin-top: 40px;
-    }
-
-    @media screen and (max-width: 600px) {
-      .gallery img {
-        width: 100%;
-        max-width: 300px;
-      }
+      padding: 20px;
+      margin-top: 50px;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Nunta Noastră</h1>
-    <p>Un loc special pentru amintiri de neuitat</p>
-  </header>
+<header>
+  <h1>Poze de la Nunta Noastră</h1>
+  <p>Încarcă o poză cu noi sau un selfie de la petrecere 💜</p>
+</header>
 
-  <section class="intro">
-    <h2>Dragii noștri invitați,</h2>
-    <p>Vă mulțumim că ați fost alături de noi! Aici puteți încărca și vizualiza poze de la nuntă.</p>
-  </section>
+<div class="upload-section">
+  <input
+    type="hidden"
+    role="uploadcare-uploader"
+    data-public-key="039d86309c4dc98c4ce0"
+    data-multiple="true"
+    data-images-only="true"
+    data-tabs="file camera"
+    data-clearable
+    data-preview-step
+  />
+</div>
 
-  <section class="upload-section">
-    <h2>Încarcă poza ta</h2>
-    <input type="file" accept="image/*" multiple onchange="previewImages(event)">
-    <div class="gallery" id="image-gallery"></div>
-  </section>
+<div id="gallery"></div>
 
-  <footer>
-    <p>&copy; 2025 Nunta Noastră | Cu drag, Marius și Giulia 💜</p>
-  </footer>
+<footer>
+  <p>Cu drag, Marius și Giulia 💍 &copy; 2025</p>
+</footer>
 
-  <script>
-    function previewImages(event) {
-      const files = event.target.files;
-      const gallery = document.getElementById('image-gallery');
-      gallery.innerHTML = "";
+<script>
+  const widget = uploadcare.Widget('[role=uploadcare-uploader]');
+  const gallery = document.getElementById('gallery');
 
-      Array.from(files).forEach(file => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          gallery.appendChild(img);
-        }
-        reader.readAsDataURL(file);
-      });
-    }
-  </script>
+  widget.onUploadComplete = function(info) {
+    const img = document.createElement('img');
+    img.src = info.cdnUrl;
+    img.alt = "Selfie nuntă";
+    img.className = 'photo';
+    gallery.appendChild(img);
+  };
+</script>
+
 </body>
 </html>
- 
-
-
