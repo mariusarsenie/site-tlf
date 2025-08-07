@@ -2,11 +2,64 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Nunta Adina & Ionuț</title>
   <link rel="stylesheet" href="style.css" />
+  
+  <!-- Pune aici cheia ta publică Uploadcare -->
+  <script>
+    UPLOADCARE_PUBLIC_KEY = "CHEIA_TA_PUBLICA_AICI";
+  </script>
+  
   <!-- Uploadcare Widget -->
   <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+  
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #ffeeee;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    header {
+      background-color: pink;
+      padding: 20px;
+    }
+    .upload, .gallery {
+      margin: 30px auto;
+    }
+    .slider {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      min-height: 180px;
+      transition: all 0.5s ease-in-out;
+    }
+    .slider img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: translateY(-30px);
+      animation: fadeInDrop 0.8s ease-in-out forwards;
+    }
+    @keyframes fadeInDrop {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+  
 </head>
 <body>
   <header>
@@ -28,6 +81,50 @@
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <script>
+    // Array inițial cu poze (exemplu cu link-uri Uploadcare)
+    const backendImages = [
+      'https://ucarecdn.com/003b623e-5569-4f32-a313-85ef960f11aa/',
+      // Adaugă aici link-urile pozelor deja încărcate
+    ];
+
+    let currentIndex = 0;
+
+    function showNextImages() {
+      const container = document.getElementById("photoSlider");
+      container.innerHTML = "";
+
+      for (let i = 0; i < 2; i++) {
+        if(backendImages.length === 0) return;
+        const img = document.createElement("img");
+        img.src = backendImages[(currentIndex + i) % backendImages.length];
+        container.appendChild(img);
+      }
+
+      currentIndex = (currentIndex + 2) % backendImages.length;
+    }
+
+    function addUploadedPhoto() {
+      const widget = uploadcare.Widget('[role=uploadcare-uploader]');
+      const file = widget.value();
+
+      if (!file) {
+        alert("Selectează o poză înainte să încarci!");
+        return;
+      }
+
+      // Obține URL-ul imaginii încărcate și o adaugă în backendImages
+      file.done(info => {
+        const fileUrl = info.cdnUrl;
+        backendImages.push(fileUrl);
+        showNextImages();
+      });
+    }
+
+    window.onload = () => {
+      showNextImages();
+      setInterval(showNextImages, 2000);
+    };
+  </script>
 </body>
 </html>
