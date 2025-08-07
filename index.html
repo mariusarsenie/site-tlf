@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nunta Adina & Ionuț</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- Uploadcare Widget -->
+  <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
 </head>
 <body>
   <header>
@@ -15,8 +17,9 @@
   <main>
     <section class="upload">
       <h2>Încarcă o poză de la nuntă</h2>
-      <input type="file" id="fileInput" accept="image/*" capture="environment"/>
-      <button onclick="uploadImage()">Încarcă poza</button>
+      <!-- Widget Uploadcare -->
+      <input type="hidden" role="uploadcare-uploader" id="uploadcare-uploader" />
+      <button onclick="addUploadedPhoto()">Încarcă poza</button>
     </section>
 
     <section class="gallery">
