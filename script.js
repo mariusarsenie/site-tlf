@@ -1,18 +1,16 @@
-
 const backendImages = [
-  'poza1.jpg',
-  'poza2.jpg',
-  'poza3.jpg',
-  'poza4.jpg',
-  'poza1.jpg',
-  'poza2.jpg'
+  'https://ucarecdn.com/003b623e-5569-4f32-a313-85ef960f11aa/', 
+  'https://ucarecdn.com/alt-url-poza-2/',
+  'https://ucarecdn.com/alt-url-poza-3/',
+  'https://ucarecdn.com/alt-url-poza-4/'
+  // Adaugă aici toate linkurile tale Uploadcare
 ];
 
 let currentIndex = 0;
 
 function showNextImages() {
   const container = document.getElementById("photoSlider");
-  container.innerHTML = ""; // Șterge imaginile vechi
+  container.innerHTML = "";  // Șterge imaginile vechi
 
   // Adaugă 2 imagini noi
   for (let i = 0; i < 2; i++) {
@@ -24,20 +22,12 @@ function showNextImages() {
   currentIndex = (currentIndex + 2) % backendImages.length;
 }
 
-function uploadImage() {
-  const input = document.getElementById("fileInput");
-  if (input.files && input.files[0]) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const img = document.createElement("img");
-      img.src = e.target.result;
-      document.getElementById("photoSlider").appendChild(img);
-    };
-    reader.readAsDataURL(input.files[0]);
-  }
-}
-
 window.onload = function () {
   showNextImages();
-  setInterval(showNextImages, 2000); // La fiecare 2 secunde
+  setInterval(showNextImages, 2000);  // Schimbă la fiecare 2 secunde
 };
+
+// Dacă vrei, poți lăsa funcția uploadImage goală sau afișând un mesaj
+function uploadImage() {
+  alert("Uploadul nu este implementat încă.");
+}
