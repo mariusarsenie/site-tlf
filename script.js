@@ -1,38 +1,44 @@
-const pubKey = "039d86309c4dc98c4ce0";
-const apiKey = "6c457c3ad93930d7a9b1";
-const photoSlider = document.getElementById('photoSlider');
+// Aici adaugă link-urile tale Uploadcare (poze încărcate anterior)
+const backendImages = [
+  'https://ucarecdn.com/003b623e-5569-4f32-a313-85ef960f11aa/',
+  // Poți adăuga aici alte link-uri dacă ai
+];
 
-async function fetchImages() {
-  const res = await fetch('https://api.uploadcare.com/files/', {
-    headers: {
-      'Authorization': 'Uploadcare.Simple ' + pubKey + ':' + apiKey,
-      'Accept': 'application/json',
-    }
-  });
-  const data = await res.json();
-  photoSlider.innerHTML = "";
-  data.results.slice(0, 20).forEach(file => {
-    const img = document.createElement('img');
-    img.src = `https://ucarecdn.com/${file.uuid}/-/preview/400x400/`;
-    photoSlider.appendChild(img);
+let currentIndex = 0;
+
+// Funcție care afișează câte 2 poze din backendImages în slider
+function showNextImages() {
+  const container = document.getElementById("photoSlider");
+  container.innerHTML = "";
+
+  for (let i = 0; i < 2; i++) {
+    const img = document.createElement("img");
+    img.src = backendImages[(currentIndex + i) % backendImages.length];
+    container.appendChild(img);
+  }
+
+  currentIndex = (currentIndex + 2) % backendImages.length;
+}
+
+// Funcție care adaugă poza încărcată de la widget în backendImages și o afișează
+function addUploadedPhoto() {
+  const widget = uploadcare.Widget('[role=uploadcare-uploader]');
+  const file = widget.value();
+
+  if (!file) {
+    alert("Selectează o poză înainte să încarci!");
+    return;
+  }
+
+  // Obține URL-ul imaginii încărcate
+  file.done(info => {
+    const fileUrl = info.cdnUrl;
+    backendImages.push(fileUrl);
+    showNextImages();
   });
 }
 
-async function uploadImage() {
-  const input = document.getElementById('fileInput');
-  const file = input.files[0];
-  if (!file) return alert("Alege o poză!");
-
-  const formData = new FormData();
-  formData.append("UPLOADCARE_PUB_KEY", pubKey);
-  formData.append("file", file);
-
-  await fetch("https://upload.uploadcare.com/base/", {
-    method: "POST",
-    body: formData,
-  });
-
-  fetchImages(); // refresh gallery
-}
-
-window.onload = fetchImages;
+window.onload = () => {
+  showNextImages();
+  setInterval(showNextImages, 2000);
+};
