@@ -1,81 +1,138 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Animație poze căzătoare</title>
-<style>
-  body {
-    height: 100vh;
-    background: #f0f0f0;
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    overflow-x: hidden;
-    padding-top: 20px;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nunta Adina & Ionuț</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fefefe;
+      margin: 0;
+      padding: 0;
+    }
 
-  .img-left, .img-right {
-    position: relative;
-    width: 150px;
-    height: 150px;
-  }
+    header {
+      background-color: #f8c8dc;
+      padding: 30px;
+      text-align: center;
+    }
 
-  /* Animația pentru poza care vine din stânga și cade */
-  @keyframes fallFromLeft {
-    0% {
-      left: -200px;
-      top: 0;
-      opacity: 0;
-      transform: rotate(-30deg);
+    main {
+      padding: 20px;
+      text-align: center;
     }
-    70% {
-      opacity: 1;
-      left: 50px;
-      top: 300px;
-      transform: rotate(10deg);
-    }
-    100% {
-      left: 50px;
-      top: 350px;
-      transform: rotate(0deg);
-    }
-  }
 
-  /* Animația pentru poza care vine din dreapta și cade */
-  @keyframes fallFromRight {
-    0% {
-      right: -200px;
-      top: 0;
-      opacity: 0;
-      transform: rotate(30deg);
+    .upload {
+      margin-bottom: 40px;
     }
-    70% {
-      opacity: 1;
-      right: 50px;
-      top: 300px;
-      transform: rotate(-10deg);
-    }
-    100% {
-      right: 50px;
-      top: 350px;
-      transform: rotate(0deg);
-    }
-  }
 
-  .img-left {
-    animation: fallFromLeft 3s ease forwards;
-  }
+    .gallery {
+      margin-top: 20px;
+    }
 
-  .img-right {
-    animation: fallFromRight 3s ease forwards;
-  }
-</style>
+    .slider {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .animated-img {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Animații */
+    @keyframes fallFromLeft {
+      0% {
+        left: -200px;
+        top: 0;
+        opacity: 0;
+        transform: rotate(-30deg);
+      }
+      70% {
+        opacity: 1;
+        left: 0;
+        top: 300px;
+        transform: rotate(10deg);
+      }
+      100% {
+        left: 0;
+        top: 350px;
+        transform: rotate(0deg);
+      }
+    }
+
+    @keyframes fallFromRight {
+      0% {
+        left: 200px;
+        top: 0;
+        opacity: 0;
+        transform: rotate(30deg);
+      }
+      70% {
+        opacity: 1;
+        left: 0;
+        top: 300px;
+        transform: rotate(-10deg);
+      }
+      100% {
+        left: 0;
+        top: 350px;
+        transform: rotate(0deg);
+      }
+    }
+
+    .from-left {
+      animation: fallFromLeft 2.5s ease forwards;
+    }
+
+    .from-right {
+      animation: fallFromRight 2.5s ease forwards;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Nunta Adina & Ionuț</h1>
+    <p>25 Octombrie 2025</p>
+  </header>
 
-<img src="https://via.placeholder.com/150/FF0000/FFFFFF?text=Stanga" alt="Poza stanga" class="img-left" />
-<img src="https://via.placeholder.com/150/0000FF/FFFFFF?text=Dreapta" alt="Poza dreapta" class="img-right" />
+  <main>
+    <section class="upload">
+      <h2>Încarcă o poză de la nuntă</h2>
+      <input type="file" id="fileInput" accept="image/*" capture="environment"/>
+      <button onclick="uploadImage()">Încarcă poza</button>
+    </section>
 
+    <section class="gallery">
+      <h2>Galerie de selfie-uri</h2>
+      <div id="photoSlider" class="slider"></div>
+    </section>
+  </main>
+
+  <script>
+    let count = 0;
+
+    function uploadImage() {
+      const input = document.getElementById("fileInput");
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.className = "animated-img " + (count % 2 === 0 ? "from-left" : "from-right");
+          document.getElementById("photoSlider").appendChild(img);
+          count++;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+  </script>
 </body>
 </html>
