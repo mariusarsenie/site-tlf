@@ -1,163 +1,114 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nunta Noastră</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #fdf6f0;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nunta Noastră</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fdf6f8;
+      color: #4a154b;
+    }
 
-        header {
-            background-color: #b88a44;
-            color: white;
-            text-align: center;
-            padding: 30px 0;
-            position: relative;
-        }
+    header {
+      background-color: #a24fa3;
+      color: white;
+      text-align: center;
+      padding: 30px 10px;
+    }
 
-        h1 {
-            margin: 0;
-        }
+    h1, h2 {
+      margin: 0;
+    }
 
-        #upload-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #fff;
-            color: #b88a44;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 0 8px rgba(0,0,0,0.1);
-        }
+    .intro {
+      padding: 20px;
+      text-align: center;
+    }
 
-        .container {
-            padding: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-        }
+    .upload-section {
+      background: #fff0ff;
+      padding: 20px;
+      text-align: center;
+    }
 
-        .section {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 280px;
-            text-align: center;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-            padding-bottom: 20px;
-        }
+    input[type="file"] {
+      margin-top: 10px;
+    }
 
-        .section img {
-            width: 100%;
-            height: auto;
-        }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      padding: 20px;
+    }
 
-        .section h3 {
-            margin: 15px 0 5px;
-        }
+    .gallery img {
+      width: 200px;
+      height: auto;
+      border-radius: 10px;
+      border: 3px solid #a24fa3;
+      object-fit: cover;
+    }
 
-        .section p {
-            color: #666;
-            padding: 0 10px 10px;
-        }
+    footer {
+      background-color: #a24fa3;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
 
-        .section:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #b88a44;
-            color: white;
-            margin-top: 40px;
-        }
-
-        #gallery {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            padding: 20px;
-        }
-
-        .gallery-item {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 0 8px rgba(0,0,0,0.1);
-        }
-
-        input[type="file"] {
-            display: none;
-        }
-    </style>
+    @media screen and (max-width: 600px) {
+      .gallery img {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<header>
+  <header>
     <h1>Nunta Noastră</h1>
-    <p>O zi magică, pentru totdeauna în inima noastră</p>
-    <label id="upload-btn" for="file-input">📸 Încarcă selfie</label>
-    <input type="file" id="file-input" accept="image/*" onchange="previewImage(event)">
-</header>
+    <p>Un loc special pentru amintiri de neuitat</p>
+  </header>
 
-<div class="container">
-    <div class="section">
-        <img src="https://tse3.mm.bing.net/th?id=OIP.-wbsj7v_FgW7JPiPiFOzRQHaEo&pid=Api" alt="Cuplu">
-        <h3>Povestea Noastră</h3>
-        <p>Ne-am întâlnit într-o zi de vară și de atunci totul a devenit mai frumos.</p>
-    </div>
-    <div class="section">
-        <img src="https://tse4.mm.bing.net/th?id=OIP.gB0eU6dzOZgONozdReThZwHaE8&pid=Api" alt="Ceremonie">
-        <h3>Ceremonia</h3>
-        <p>Va avea loc într-un decor de vis, cu oameni dragi alături de noi.</p>
-    </div>
-    <div class="section">
-        <img src="https://tse2.mm.bing.net/th?id=OIP.NFfBLovcx0BL0UnXMB_mVwHaE8&pid=Api" alt="Petrecere">
-        <h3>Petrecerea</h3>
-        <p>Dans, muzică și voie bună până dimineața!</p>
-    </div>
-</div>
+  <section class="intro">
+    <h2>Dragii noștri invitați,</h2>
+    <p>Vă mulțumim că ați fost alături de noi! Aici puteți încărca și vizualiza poze de la nuntă.</p>
+  </section>
 
-<section>
-    <h2 style="text-align:center; color:#b88a44;">📷 Pozele voastre</h2>
-    <div id="gallery"></div>
-</section>
+  <section class="upload-section">
+    <h2>Încarcă poza ta</h2>
+    <input type="file" accept="image/*" multiple onchange="previewImages(event)">
+    <div class="gallery" id="image-gallery"></div>
+  </section>
 
-<footer>
-    <p>&copy; 2025 Nunta Noastră. Cu dragoste eternă.</p>
-</footer>
+  <footer>
+    <p>&copy; 2025 Nunta Noastră | Cu drag, Marius și Giulia 💜</p>
+  </footer>
 
-<script>
-    function previewImage(event) {
-        const gallery = document.getElementById('gallery');
-        const file = event.target.files[0];
+  <script>
+    function previewImages(event) {
+      const files = event.target.files;
+      const gallery = document.getElementById('image-gallery');
+      gallery.innerHTML = "";
 
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.className = 'gallery-item';
-                gallery.appendChild(img);
-            };
-            reader.readAsDataURL(file);
+      Array.from(files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          gallery.appendChild(img);
         }
+        reader.readAsDataURL(file);
+      });
     }
-</script>
-
+  </script>
 </body>
 </html>
 
