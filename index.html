@@ -6,9 +6,9 @@
   <title>Nunta Adina & Ionuț</title>
   <link rel="stylesheet" href="style.css" />
   
-  <!-- Pune aici cheia ta publică Uploadcare -->
+  <!-- Cheia publică Uploadcare -->
   <script>
-    UPLOADCARE_PUBLIC_KEY = "CHEIA_TA_PUBLICA_AICI";
+    UPLOADCARE_PUBLIC_KEY = "a3f2e4d0c345c91606ca";
   </script>
   
   <!-- Uploadcare Widget -->
@@ -70,7 +70,6 @@
   <main>
     <section class="upload">
       <h2>Încarcă o poză de la nuntă</h2>
-      <!-- Widget Uploadcare -->
       <input type="hidden" role="uploadcare-uploader" id="uploadcare-uploader" />
       <button onclick="addUploadedPhoto()">Încarcă poza</button>
     </section>
@@ -82,10 +81,9 @@
   </main>
 
   <script>
-    // Array inițial cu poze (exemplu cu link-uri Uploadcare)
     const backendImages = [
+      // Adaugă aici link-urile pozelor deja încărcate dacă vrei
       'https://ucarecdn.com/003b623e-5569-4f32-a313-85ef960f11aa/',
-      // Adaugă aici link-urile pozelor deja încărcate
     ];
 
     let currentIndex = 0;
@@ -94,8 +92,9 @@
       const container = document.getElementById("photoSlider");
       container.innerHTML = "";
 
+      if(backendImages.length === 0) return;
+
       for (let i = 0; i < 2; i++) {
-        if(backendImages.length === 0) return;
         const img = document.createElement("img");
         img.src = backendImages[(currentIndex + i) % backendImages.length];
         container.appendChild(img);
@@ -113,7 +112,6 @@
         return;
       }
 
-      // Obține URL-ul imaginii încărcate și o adaugă în backendImages
       file.done(info => {
         const fileUrl = info.cdnUrl;
         backendImages.push(fileUrl);
