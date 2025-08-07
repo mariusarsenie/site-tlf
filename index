@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Animație poze căzătoare</title>
+<style>
+  body {
+    height: 100vh;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+
+  .img-left, .img-right {
+    position: relative;
+    width: 150px;
+    height: 150px;
+  }
+
+  /* Animația pentru poza care vine din stânga și cade */
+  @keyframes fallFromLeft {
+    0% {
+      left: -200px;
+      top: 0;
+      opacity: 0;
+      transform: rotate(-30deg);
+    }
+    70% {
+      opacity: 1;
+      left: 50px;
+      top: 300px;
+      transform: rotate(10deg);
+    }
+    100% {
+      left: 50px;
+      top: 350px;
+      transform: rotate(0deg);
+    }
+  }
+
+  /* Animația pentru poza care vine din dreapta și cade */
+  @keyframes fallFromRight {
+    0% {
+      right: -200px;
+      top: 0;
+      opacity: 0;
+      transform: rotate(30deg);
+    }
+    70% {
+      opacity: 1;
+      right: 50px;
+      top: 300px;
+      transform: rotate(-10deg);
+    }
+    100% {
+      right: 50px;
+      top: 350px;
+      transform: rotate(0deg);
+    }
+  }
+
+  .img-left {
+    animation: fallFromLeft 3s ease forwards;
+  }
+
+  .img-right {
+    animation: fallFromRight 3s ease forwards;
+  }
+</style>
+</head>
+<body>
+
+<img src="https://via.placeholder.com/150/FF0000/FFFFFF?text=Stanga" alt="Poza stanga" class="img-left" />
+<img src="https://via.placeholder.com/150/0000FF/FFFFFF?text=Dreapta" alt="Poza dreapta" class="img-right" />
+
+</body>
+</html>
