@@ -1,34 +1,43 @@
-const pubKey = "039d86309c4dc98c4ce0"; // pune cheile tale reale
-const apiKey = "6c457c3ad93930d7a9b1";
+const pubKey = "039d86309c4dc98c4ce0"; // Folosește cheia ta corectă
+const apiKey = "6c457c3ad93930d7a9b1"; // Folosește cheia ta corectă
+
 const photoSlider = document.getElementById('photoSlider');
+const previewPhotos = document.getElementById('previewPhotos');
+const fullGallery = document.getElementById('fullGallery');
+const galleryPhotos = document.getElementById('galleryPhotos');
+const closeGalleryBtn = document.getElementById('closeGallery');
 
 let imageURLs = [];
 let currentIndex = 0;
 
-const previewContainer = document.getElementById('previewContainer');
-const galleryModal = document.getElementById('galleryModal');
-const modalContent = document.getElementById('modalContent');
-const previewSection = document.getElementById('preview');
-
+// Fetch imagini din Uploadcare
 async function fetchImages() {
-  const res = await fetch('https://api.uploadcare.com/files/', {
-    headers: {
-      'Authorization': 'Uploadcare.Simple ' + pubKey + ':' + apiKey,
-      'Accept': 'application/json',
+  try {
+    const res = await fetch('https://api.uploadcare.com/files/', {
+      headers: {
+        'Authorization': 'Uploadcare.Simple ' + pubKey + ':' + apiKey,
+        'Accept': 'application/json',
+      }
+    });
+    const data = await res.json();
+
+    imageURLs = data.results.slice(0, 20).map(file => `https://ucarecdn.com/${file.uuid}/-/preview/400x400/`);
+
+    if(imageURLs.length === 0) {
+      photoSlider.textContent = "Nu sunt poze disponibile.";
+      previewPhotos.textContent = "Nu sunt poze încărcate.";
+    } else {
+      startCarousel();
+      updateGalleryUI();
     }
-  });
-  const data = await res.json();
-
-  imageURLs = data.results.slice(0, 20).map(file => `https://ucarecdn.com/${file.uuid}/-/preview/400x400/`);
-
-  if(imageURLs.length === 0) {
-    photoSlider.textContent = "Nu sunt poze disponibile.";
-    previewContainer.innerHTML = "";
-  } else {
-    startCarousel();
+  } catch(e) {
+    console.error("Eroare la fetchImages:", e);
+    photoSlider.textContent = "Eroare la încărcarea pozelor.";
+    previewPhotos.textContent = "Eroare la încărcarea pozelor.";
   }
 }
 
+// Încarcă o imagine în Uploadcare
 async function uploadImage() {
   const input = document.getElementById('fileInput');
   const file = input.files[0];
@@ -38,14 +47,20 @@ async function uploadImage() {
   formData.append("UPLOADCARE_PUB_KEY", pubKey);
   formData.append("file", file);
 
-  await fetch("https://upload.uploadcare.com/base/", {
-    method: "POST",
-    body: formData,
-  });
+  try {
+    await fetch("https://upload.uploadcare.com/base/", {
+      method: "POST",
+      body: formData,
+    });
 
-  await fetchImages(); // Reîncarcă lista și repornește caruselul
+    await fetchImages(); // Reîncarcă lista și UI-ul
+  } catch(e) {
+    alert("Eroare la încărcarea pozei.");
+    console.error(e);
+  }
 }
 
+// Carusel imagini în slider
 function startCarousel() {
   showImages();
   if(window.carouselInterval) clearInterval(window.carouselInterval);
@@ -61,7 +76,6 @@ function showImages() {
 
   if (imageURLs.length === 0) {
     photoSlider.textContent = "Nu sunt poze disponibile.";
-    previewContainer.innerHTML = "";
     return;
   }
 
@@ -71,44 +85,53 @@ function showImages() {
   imgLeft.src = imageURLs[currentIndex % imageURLs.length];
   imgRight.src = imageURLs[(currentIndex + 1) % imageURLs.length];
 
-  imgLeft.classList.add("left");
-  imgRight.classList.add("right");
-
   photoSlider.appendChild(imgLeft);
   photoSlider.appendChild(imgRight);
-
-  updatePreview();
 }
 
+// Actualizează miniaturile din preview (patratul mic)
 function updatePreview() {
-  previewContainer.innerHTML = "";
+  previewPhotos.innerHTML = '';
+  if(imageURLs.length === 0){
+    previewPhotos.textContent = 'Nu sunt poze încărcate.';
+    return;
+  }
   imageURLs.forEach(url => {
     const img = document.createElement('img');
     img.src = url;
-    previewContainer.appendChild(img);
+    previewPhotos.appendChild(img);
   });
 }
 
-previewSection.addEventListener('click', () => {
-  openGallery();
-});
-
+// Deschide galeria mare
 function openGallery() {
-  modalContent.innerHTML = "";
+  galleryPhotos.innerHTML = '';
   imageURLs.forEach(url => {
     const img = document.createElement('img');
     img.src = url;
-    modalContent.appendChild(img);
+    galleryPhotos.appendChild(img);
   });
-  galleryModal.style.display = 'flex';
+  fullGallery.classList.remove('hidden');
 }
 
+// Închide galeria mare
 function closeGallery() {
-  galleryModal.style.display = 'none';
+  fullGallery.classList.add('hidden');
 }
 
+// Evenimente click pentru deschidere și închidere galerie
+previewPhotos.addEventListener('click', openGallery);
+closeGalleryBtn.addEventListener('click', closeGallery);
+
+// Apeluri la încărcarea paginii
 window.onload = async () => {
   await fetchImages();
 };
+
+// Actualizează preview și altele când se schimbă pozele
+function updateGalleryUI() {
+  updatePreview();
+}
+
 
 
