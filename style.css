@@ -1,6 +1,25 @@
-/* Fundal cer cu trecere lină */
+/* BANDA AVION SUS FIXĂ */
+header {
+  width: 100%;
+  height: 120px;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.header-plane {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+}
+
+/* FUNDAL CER PE TOATĂ PAGINA */
 body {
   margin: 0;
+  padding-top: 120px; /* spațiu pentru header */
   font-family: Arial, sans-serif;
   background: url('cer-nori.jpg') no-repeat center top fixed;
   background-size: cover;
@@ -10,155 +29,83 @@ body {
   flex-direction: column;
 }
 
-header {
-  margin: 0;
-  padding: 0;
-}
-
-.header-plane {
-  width: 100%;
-  display: block;
-  object-fit: cover;
-}
-
-/* Main container */
-main {
-  flex-grow: 1;
-  padding: 2rem 1rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-/* Upload sectiune */
+/* UPLOAD SECTION */
 .upload {
   text-align: center;
   margin-bottom: 2rem;
 }
 
-.upload h2 {
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.upload-buttons button {
-  background-color: #5b3e96;
-  color: #fff;
-  border: none;
-  padding: 0.7rem 1.3rem;
-  margin: 0 0.4rem 1rem 0.4rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.upload-buttons button:hover {
-  background-color: #7d5eb9;
-}
-
-.upload > button {
-  background-color: #8a56ac;
-  color: #fff;
-  border: none;
-  padding: 0.7rem 1.5rem;
+.buttons-upload button {
+  margin: 0 0.5rem;
+  padding: 0.75rem 1.5rem;
   font-size: 1.1rem;
-  border-radius: 8px;
   cursor: pointer;
-  margin-top: 0.7rem;
+  border: none;
+  background-color: #724a92;
+  color: white;
+  border-radius: 6px;
   transition: background-color 0.3s ease;
 }
 
-.upload > button:hover {
-  background-color: #a575c6;
+.buttons-upload button:hover {
+  background-color: #5a3570;
 }
 
-/* Galerie animata */
+/* GALERIE CARUSEL */
 .gallery h2 {
   text-align: center;
   margin-bottom: 1rem;
-  font-weight: 600;
 }
 
 .slider {
   display: flex;
-  overflow-x: hidden;
-  gap: 1rem;
   justify-content: center;
-  align-items: center;
-  padding: 1rem 0;
+  gap: 1rem;
+  padding: 1rem;
+  overflow: hidden;
 }
 
 .slider img {
   height: 200px;
-  border-radius: 12px;
-  box-shadow: 0 5px 12px rgba(58,16,87,0.3);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
   transition: transform 0.3s ease;
 }
 
-.slider img.left {
-  transform: translateX(0);
+.slider img:hover {
+  transform: scale(1.05);
 }
 
-.slider img.right {
-  transform: translateX(0);
-}
-
-/* Sectiune poze statice */
-.all-photos {
-  max-width: 900px;
-  margin: 2rem auto 4rem;
-  text-align: center;
-}
-
-.toggle-gallery {
-  font-weight: 700;
+/* TOATE POZELE - SECȚIUNEA CU GRILĂ */
+.allPhotosSection {
+  background-color: rgba(255,255,255,0.85);
+  margin: 2rem auto;
+  max-width: 90vw;
+  border-radius: 10px;
+  padding: 1rem;
   cursor: pointer;
-  color: #5b3e96;
-  margin-bottom: 1rem;
-  user-select: none;
-  font-size: 1.1rem;
 }
 
-.all-photos-grid {
+.allPhotosGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
-  gap: 0.8rem;
-  max-height: 300px;
-  overflow-y: auto;
-  border-radius: 12px;
-  padding: 0.8rem;
-  background-color: rgba(255 255 255 / 0.75);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: max-height 0.4s ease;
+  grid-template-columns: repeat(auto-fill,minmax(120px,1fr));
+  gap: 1rem;
 }
 
-.all-photos-grid.hidden {
-  max-height: 0;
-  padding: 0;
-  overflow: hidden;
-  box-shadow: none;
-}
-
-.all-photos-grid img {
+.allPhotosGrid img {
   width: 100%;
   height: 100px;
   object-fit: cover;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-.all-photos-grid img:hover {
-  transform: scale(1.1);
-}
-
-/* Footer */
+/* FOOTER */
 footer {
+  margin-top: auto;
+  padding: 1rem;
   text-align: center;
-  padding: 1.5rem 0;
-  background-color: rgba(91, 62, 150, 0.15);
-  color: #4a237d;
-  font-weight: 600;
-  font-size: 1rem;
-  user-select: none;
+  color: #724a92;
+  font-weight: bold;
 }
