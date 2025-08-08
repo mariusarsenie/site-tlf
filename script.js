@@ -23,9 +23,7 @@ async function fetchImages() {
   }
 }
 
-async function uploadImage() {
-  const input = document.getElementById('fileInput');
-  const file = input.files[0];
+async function uploadFile(file) {
   if (!file) return alert("Alege o poză!");
 
   const formData = new FormData();
@@ -64,32 +62,14 @@ function showImages() {
   imgLeft.src = imageURLs[currentIndex % imageURLs.length];
   imgRight.src = imageURLs[(currentIndex + 1) % imageURLs.length];
 
+  imgLeft.classList.add("left");
+  imgRight.classList.add("right");
+
   photoSlider.appendChild(imgLeft);
   photoSlider.appendChild(imgRight);
 }
 
-// Countdown
-function startCountdown() {
-  const eventDate = new Date("2025-10-25T15:00:00").getTime();
-  const countdownEl = document.getElementById("countdown");
-
-  setInterval(() => {
-    const now = new Date().getTime();
-    const distance = eventDate - now;
-
-    if (distance < 0) {
-      countdownEl.innerHTML = "🎉 Este ziua cea mare!";
-      return;
-    }
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    countdownEl.innerHTML = `⏳ ${days} zile, ${hours} ore, ${minutes} minute`;
-  }, 1000);
-}
-
 window.onload = async () => {
-  startCountdown();
   await fetchImages();
 };
+
