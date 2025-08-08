@@ -1,55 +1,108 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #fff0f9;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to top, #d0e7f9, #f9f9f9);
   margin: 0;
   padding: 0;
-  color: #4b004f;
+  color: #003366;
+  overflow-x: hidden;
 }
 
 header {
-  background-color: #e0b3dc;
-  padding: 1.5rem;
+  background: url('clouds-bg.jpg') no-repeat center/cover;
+  color: #fff;
   text-align: center;
-  border-bottom: 3px solid #a64ca6;
+  padding: 3rem 1rem;
+  position: relative;
 }
 
 header h1 {
-  margin: 0;
-  font-size: 2rem;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px #00000066;
 }
 
+header p {
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 3px #00000055;
+}
+
+.plane-icon {
+  width: 50px;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.countdown {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: #ffffffaa;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+/* Main Content */
 main {
   padding: 2rem;
 }
 
+/* Upload Section */
 .upload {
-  margin-bottom: 2rem;
   text-align: center;
+  margin-bottom: 3rem;
 }
 
 .upload input,
 .upload button {
   margin: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.7rem 1rem;
   font-size: 1rem;
+  border: 2px solid #0077cc;
+  border-radius: 8px;
 }
 
+.upload button {
+  background-color: #0077cc;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.upload button:hover {
+  background-color: #005fa3;
+}
+
+/* Gallery */
 .gallery h2 {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .slider {
   display: flex;
-  overflow-x: auto;
+  justify-content: center;
   gap: 1rem;
   padding: 1rem;
-  scroll-snap-type: x mandatory;
+  overflow: hidden;
 }
 
 .slider img {
   height: 200px;
-  border-radius: 10px;
-  scroll-snap-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.slider img:hover {
+  transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background-color: #003366;
+  color: white;
 }
