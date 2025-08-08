@@ -16,28 +16,30 @@
 
   <main>
     <section class="upload">
-      <h2>📸 Încarcă un selfie de la bord</h2>
-
-      <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;" />
-      <button onclick="document.getElementById('cameraInput').click()">📷 Fă o poză</button>
-
-      <input type="file" id="galleryInput" accept="image/*" style="display: none;" />
-      <button onclick="document.getElementById('galleryInput').click()">🖼️ Alege din galerie</button>
+      <h2>📸 Încărcare selfie</h2>
+      <div class="button-group">
+        <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;" />
+        <input type="file" id="galleryInput" accept="image/*" style="display: none;" />
+        <button onclick="document.getElementById('cameraInput').click()">📷 Fă poză</button>
+        <button onclick="document.getElementById('galleryInput').click()">🖼️ Alege din galerie</button>
+      </div>
+      <button onclick="uploadSelectedImage()">📤 Încarcă poza</button>
     </section>
 
     <section class="gallery">
-      <h2>🛫 Galerie de amintiri de la zborul iubirii</h2>
+      <h2>🛫 Galerie animată</h2>
       <div id="photoSlider" class="slider"></div>
+    </section>
 
-      <div class="all-photos-preview" onclick="openFullGallery()">
-        <h3>Toate pozele încărcate (click pentru galerie)</h3>
-        <div id="thumbnailContainer" class="thumbnails"></div>
-      </div>
+    <section class="mini-gallery" onclick="toggleFullGallery()">
+      <h3>📦 Toate pozele (click pentru galerie completă)</h3>
+      <div id="staticGallery" class="static-gallery"></div>
+    </section>
 
-      <div id="fullGalleryModal" class="modal">
-        <span class="close" onclick="closeFullGallery()">&times;</span>
-        <div class="modal-content" id="fullGallery"></div>
-      </div>
+    <section id="fullGallery" class="full-gallery hidden">
+      <h2>🖼️ Galerie completă</h2>
+      <div id="fullGalleryImages" class="full-gallery-images"></div>
+      <button onclick="toggleFullGallery()">🔙 Înapoi</button>
     </section>
   </main>
 
