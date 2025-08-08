@@ -1,53 +1,12 @@
 const pubKey = "039d86309c4dc98c4ce0";
 const apiKey = "6c457c3ad93930d7a9b1";
-
 const photoSlider = document.getElementById('photoSlider');
-const staticGallery = document.getElementById('staticGallery');
-const fullGallery = document.getElementById('fullGallery');
-const fullGalleryImages = document.getElementById('fullGalleryImages');
-const fileInput = document.getElementById('fileInput');
+const thumbnailGallery = document.getElementById('thumbnailGallery');
+const allPhotos = document.getElementById('allPhotos');
 
 let imageURLs = [];
 let currentIndex = 0;
-let capturePhoto = true; // dacă vrem captură camera sau galerie
 
-// Schimbă mod input (camera sau galerie)
-function setCapture(isCapture) {
-  capturePhoto = isCapture;
-  if (capturePhoto) {
-    fileInput.setAttribute('capture', 'environment');
-  } else {
-    fileInput.removeAttribute('capture');
-  }
-  fileInput.click();
-}
-
-fileInput.addEventListener('change', () => {
-  // doar afișăm fișierul ales (poate mai vrei validare)
-});
-
-// Încarcă poza în Uploadcare
-async function uploadImage() {
-  const file = fileInput.files[0];
-  if (!file) {
-    alert("Alege o poză!");
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append("UPLOADCARE_PUB_KEY", pubKey);
-  formData.append("file", file);
-
-  await fetch("https://upload.uploadcare.com/base/", {
-    method: "POST",
-    body: formData,
-  });
-
-  await fetchImages(); // Reîncarcă lista și repornește caruselul
-  fileInput.value = "";
-}
-
-// Preia pozele din Uploadcare
 async function fetchImages() {
   const res = await fetch('https://api.uploadcare.com/files/', {
     headers: {
@@ -55,22 +14,58 @@ async function fetchImages() {
       'Accept': 'application/json',
     }
   });
+
   const data = await res.json();
 
-  imageURLs = data.results.slice(0, 20).map(file => `https://ucarecdn.com/${file.uuid}/-/preview/400x400/`);
+  imageURLs = data.results
+    .filter(file => file.is_image)
+    .slice(0, 50)
+    .map(file => `https://ucarecdn.com/${file.uuid}/-/preview/400x400/`);
 
-  if(imageURLs.length === 0) {
-    photoSlider.textContent = "Nu sunt poze disponibile.";
-  } else {
-    startCarousel();
-    updateStaticGallery();
-  }
+  showThumbnails();
+  startCarousel();
+}
+
+function showThumbnails() {
+  thumbnailGallery.innerHTML = "";
+  allPhotos.innerHTML = "";
+
+  imageURLs.forEach(url => {
+    const thumb = document.createElement('img');
+    thumb.src = url;
+    thumbnailGallery.appendChild(thumb);
+
+    const full = document.createElement('img');
+    full.src = url;
+    allPhotos.appendChild(full);
+  });
+}
+
+function toggleFullGallery() {
+  const fullGallery = document.getElementById('fullGallery');
+  fullGallery.classList.toggle('visible');
+}
+
+function uploadImage() {
+  const cameraFile = document.getElementById('cameraInput').files[0];
+  const galleryFile = document.getElementById('galleryInput').files[0];
+  const file = cameraFile || galleryFile;
+
+  if (!file) return alert("Alege sau fă o poză mai întâi!");
+
+  const formData = new FormData();
+  formData.append("UPLOADCARE_PUB_KEY", pubKey);
+  formData.append("file", file);
+
+  fetch("https://upload.uploadcare.com/base/", {
+    method: "POST",
+    body: formData,
+  }).then(() => fetchImages());
 }
 
 function startCarousel() {
   showImages();
   if(window.carouselInterval) clearInterval(window.carouselInterval);
-
   window.carouselInterval = setInterval(() => {
     currentIndex = (currentIndex + 2) % imageURLs.length;
     showImages();
@@ -81,40 +76,18 @@ function showImages() {
   photoSlider.innerHTML = "";
 
   if (imageURLs.length === 0) {
-    photoSlider.textContent = "Nu sunt poze disponibile.";
+    photoSlider.textContent = "Nu sunt poze încă.";
     return;
   }
 
-  const imgLeft = document.createElement('img');
-  const imgRight = document.createElement('img');
+  const img1 = document.createElement('img');
+  const img2 = document.createElement('img');
 
-  imgLeft.src = imageURLs[currentIndex % imageURLs.length];
-  imgRight.src = imageURLs[(currentIndex + 1) % imageURLs.length];
+  img1.src = imageURLs[currentIndex % imageURLs.length];
+  img2.src = imageURLs[(currentIndex + 1) % imageURLs.length];
 
-  photoSlider.appendChild(imgLeft);
-  photoSlider.appendChild(imgRight);
+  photoSlider.appendChild(img1);
+  photoSlider.appendChild(img2);
 }
 
-// Actualizează mini-galeria cu toate pozele
-function updateStaticGallery() {
-  staticGallery.innerHTML = "";
-  imageURLs.forEach(url => {
-    const img = document.createElement('img');
-    img.src = url;
-    img.onclick = openFullGallery;
-    staticGallery.appendChild(img);
-  });
-}
-
-// Deschide galeria completă
-function openFullGallery() {
-  fullGallery.classList.remove('hidden');
-  fullGalleryImages.innerHTML = "";
-  imageURLs.forEach(url => {
-    const img = document.createElement('img');
-    img.src = url;
-    fullGalleryImages.appendChild(img);
-  });
-}
-
-// Închide galeria completă
+window.onload = fetchImages;
