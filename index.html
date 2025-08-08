@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nunta Adina & Ionuț</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Nunta Adina & Ionuț</h1>
+    <p>25 Octombrie 2025</p>
+  </header>
+
+  <main>
+    <section class="upload">
+      <h2>Încarcă o poză de la nuntă</h2>
+      <input type="file" id="fileInput" accept="image/*" capture="environment"/>
+      <button onclick="uploadImage()">Încarcă poza</button>
+    </section>
+
+    <section class="gallery">
+      <h2>Galerie de selfie-uri</h2>
+      <div id="photoSlider" class="slider"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
