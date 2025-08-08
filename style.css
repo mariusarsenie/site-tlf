@@ -1,0 +1,55 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fff0f9;
+  margin: 0;
+  padding: 0;
+  color: #4b004f;
+}
+
+header {
+  background-color: #e0b3dc;
+  padding: 1.5rem;
+  text-align: center;
+  border-bottom: 3px solid #a64ca6;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+main {
+  padding: 2rem;
+}
+
+.upload {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.upload input,
+.upload button {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.gallery h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.slider {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 1rem;
+  scroll-snap-type: x mandatory;
+}
+
+.slider img {
+  height: 200px;
+  border-radius: 10px;
+  scroll-snap-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
