@@ -1,115 +1,164 @@
+/* Fundal cer cu trecere lină */
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
-  color: #003049;
-  background: url("https://i.ibb.co/fxQ3ZcJ/sky-background.jpg") no-repeat center center fixed;
+  font-family: Arial, sans-serif;
+  background: url('cer-nori.jpg') no-repeat center top fixed;
   background-size: cover;
+  color: #3a1057;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
-  background: rgba(255, 255, 255, 0.7);
-  padding: 1.5rem;
-  text-align: center;
-  border-bottom: 3px solid #003049;
+  margin: 0;
+  padding: 0;
 }
 
-header img.plane-icon {
-  width: 50px;
-  height: auto;
+.header-plane {
+  width: 100%;
+  display: block;
+  object-fit: cover;
 }
 
-header h1 {
-  margin: 0.5rem 0 0;
-  font-size: 2rem;
-}
-
-header p {
-  margin: 0.2rem 0 0;
-}
-
+/* Main container */
 main {
-  padding: 2rem;
+  flex-grow: 1;
+  padding: 2rem 1rem;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
+/* Upload sectiune */
 .upload {
   text-align: center;
+  margin-bottom: 2rem;
 }
 
-.upload .buttons button {
-  margin: 0.5rem;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
+.upload h2 {
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.upload-buttons button {
+  background-color: #5b3e96;
+  color: #fff;
   border: none;
-  background: #0077b6;
-  color: white;
-  border-radius: 5px;
+  padding: 0.7rem 1.3rem;
+  margin: 0 0.4rem 1rem 0.4rem;
+  font-size: 1rem;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.upload .buttons button:hover {
-  background: #023e8a;
+.upload-buttons button:hover {
+  background-color: #7d5eb9;
+}
+
+.upload > button {
+  background-color: #8a56ac;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 0.7rem;
+  transition: background-color 0.3s ease;
+}
+
+.upload > button:hover {
+  background-color: #a575c6;
+}
+
+/* Galerie animata */
+.gallery h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 600;
 }
 
 .slider {
   display: flex;
-  justify-content: center;
+  overflow-x: hidden;
   gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
 }
 
 .slider img {
   height: 200px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 5px 12px rgba(58,16,87,0.3);
+  transition: transform 0.3s ease;
 }
 
-.mini-gallery-section {
+.slider img.left {
+  transform: translateX(0);
+}
+
+.slider img.right {
+  transform: translateX(0);
+}
+
+/* Sectiune poze statice */
+.all-photos {
+  max-width: 900px;
+  margin: 2rem auto 4rem;
   text-align: center;
-  margin-top: 2rem;
 }
 
-.mini-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  justify-content: center;
-  max-width: 300px;
-  margin: 0 auto;
-  border: 2px solid #003049;
-  padding: 5px;
-  background: rgba(255,255,255,0.8);
+.toggle-gallery {
+  font-weight: 700;
   cursor: pointer;
+  color: #5b3e96;
+  margin-bottom: 1rem;
+  user-select: none;
+  font-size: 1.1rem;
 }
 
-.mini-gallery img {
-  width: 60px;
-  height: 60px;
+.all-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
+  gap: 0.8rem;
+  max-height: 300px;
+  overflow-y: auto;
+  border-radius: 12px;
+  padding: 0.8rem;
+  background-color: rgba(255 255 255 / 0.75);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: max-height 0.4s ease;
+}
+
+.all-photos-grid.hidden {
+  max-height: 0;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.all-photos-grid img {
+  width: 100%;
+  height: 100px;
   object-fit: cover;
-}
-
-.overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  overflow: auto;
-  padding: 20px;
-}
-
-.full-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  background: white;
-  padding: 10px;
   border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
-.full-gallery img {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
+.all-photos-grid img:hover {
+  transform: scale(1.1);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1.5rem 0;
+  background-color: rgba(91, 62, 150, 0.15);
+  color: #4a237d;
+  font-weight: 600;
+  font-size: 1rem;
+  user-select: none;
 }
