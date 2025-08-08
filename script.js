@@ -14,7 +14,6 @@ async function fetchImages() {
   });
   const data = await res.json();
 
-  // Construim lista URL-urilor imaginilor din Uploadcare
   imageURLs = data.results.slice(0, 20).map(file => `https://ucarecdn.com/${file.uuid}/-/preview/400x400/`);
 
   if(imageURLs.length === 0) {
@@ -43,12 +42,12 @@ async function uploadImage() {
 
 function startCarousel() {
   showImages();
-  // Dacă există deja un interval activ, îl ștergem (pentru siguranță)
   if(window.carouselInterval) clearInterval(window.carouselInterval);
 
   window.carouselInterval = setInterval(() => {
     currentIndex = (currentIndex + 2) % imageURLs.length;
     showImages();
+    console.log("Schimb imagini la index:", currentIndex);
   }, 2000);
 }
 
@@ -73,4 +72,6 @@ function showImages() {
   photoSlider.appendChild(imgRight);
 }
 
-window.onload = fetchImages;
+window.onload = async () => {
+  await fetchImages();
+};
