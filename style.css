@@ -54,78 +54,75 @@ main {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Preview poze miniaturi */
-.preview {
-  margin: 1.5rem auto;
-  max-width: 600px;
-  cursor: pointer;
-}
-
+/* Preview container (miniaturi fixe) */
 .preview-container {
+  margin: 20px auto;
+  max-width: 600px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.preview-photos {
   display: flex;
-  overflow-x: auto;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  border: 2px solid #a64ca6;
-  border-radius: 10px;
-  background-color: #fce4f6;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
 }
 
-.preview-container img {
-  height: 60px;
-  border-radius: 5px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  flex-shrink: 0;
-  transition: transform 0.3s ease;
+.preview-photos img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease;
 }
 
-.preview-container img:hover {
+.preview-photos img:hover {
   transform: scale(1.1);
 }
 
-/* Modal galerie full screen */
-#galleryModal {
+/* Galeria mare fullscreen */
+.full-gallery {
   position: fixed;
-  top:0; left:0; right:0; bottom:0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0,0,0,0.8);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+  overflow-y: auto;
+  padding: 30px 20px;
+  box-sizing: border-box;
+  z-index: 9999;
 }
 
-#galleryModal .modal-content {
-  max-width: 90vw;
-  max-height: 90vh;
-  overflow-y: auto;
-  background: white;
-  border-radius: 15px;
-  padding: 1rem;
+.full-gallery.hidden {
+  display: none;
+}
+
+#closeGallery {
+  background: #fff0f9;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.gallery-photos {
   display: grid;
   grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
-  gap: 1rem;
+  gap: 15px;
 }
 
-#galleryModal .modal-content img {
+.gallery-photos img {
   width: 100%;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-  transition: transform 0.3s ease;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
-#galleryModal .modal-content img:hover {
-  transform: scale(1.05);
-}
-
-#galleryModal .close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1.5rem;
-  font-size: 2rem;
-  color: white;
-  cursor: pointer;
-  user-select: none;
-  font-weight: bold;
-}
 
