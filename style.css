@@ -1,108 +1,131 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to top, #d0e7f9, #f9f9f9);
+  font-family: Arial, sans-serif;
+  background-color: #fff0f9;
   margin: 0;
   padding: 0;
-  color: #003366;
-  overflow-x: hidden;
+  color: #4b004f;
 }
 
 header {
-  background: url('Avion-imagini-avioane-foto-avion-fotografii-avioane-hd-airplane-cer-nori-airplanes-18.jpg') no-repeat center/cover;
-  color: #fff;
+  background-color: #e0b3dc;
+  padding: 1.5rem;
   text-align: center;
-  padding: 3rem 1rem;
-  position: relative;
+  border-bottom: 3px solid #a64ca6;
 }
 
 header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  text-shadow: 2px 2px 4px #00000066;
+  margin: 0;
+  font-size: 2rem;
 }
 
-header p {
-  font-size: 1.2rem;
-  text-shadow: 1px 1px 3px #00000055;
-}
-
-.plane-icon {
-  width: 50px;
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-}
-
-.countdown {
-  margin-top: 1rem;
-  font-size: 1.5rem;
-  font-weight: bold;
-  background: #ffffffaa;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  display: inline-block;
-}
-
-/* Main Content */
 main {
   padding: 2rem;
 }
 
-/* Upload Section */
 .upload {
+  margin-bottom: 2rem;
   text-align: center;
-  margin-bottom: 3rem;
 }
 
 .upload input,
 .upload button {
   margin: 0.5rem;
-  padding: 0.7rem 1rem;
+  padding: 0.5rem;
   font-size: 1rem;
-  border: 2px solid #0077cc;
-  border-radius: 8px;
 }
 
-.upload button {
-  background-color: #0077cc;
-  color: white;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.upload button:hover {
-  background-color: #005fa3;
-}
-
-/* Gallery */
 .gallery h2 {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .slider {
   display: flex;
-  justify-content: center;
+  overflow-x: auto;
   gap: 1rem;
   padding: 1rem;
-  overflow: hidden;
+  scroll-snap-type: x mandatory;
 }
 
 .slider img {
   height: 200px;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  scroll-snap-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Preview poze miniaturi */
+.preview {
+  margin: 1.5rem auto;
+  max-width: 600px;
+  cursor: pointer;
+}
+
+.preview-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: 2px solid #a64ca6;
+  border-radius: 10px;
+  background-color: #fce4f6;
+}
+
+.preview-container img {
+  height: 60px;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  flex-shrink: 0;
   transition: transform 0.3s ease;
 }
 
-.slider img:hover {
+.preview-container img:hover {
+  transform: scale(1.1);
+}
+
+/* Modal galerie full screen */
+#galleryModal {
+  position: fixed;
+  top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#galleryModal .modal-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: white;
+  border-radius: 15px;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+  gap: 1rem;
+}
+
+#galleryModal .modal-content img {
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+
+#galleryModal .modal-content img:hover {
   transform: scale(1.05);
 }
 
-/* Footer */
-footer {
-  text-align: center;
-  padding: 2rem;
-  background-color: #003366;
+#galleryModal .close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
   color: white;
+  cursor: pointer;
+  user-select: none;
+  font-weight: bold;
 }
+
