@@ -1,9 +1,14 @@
-const pubKey = "039d86309c4dc98c4ce0";
+const pubKey = "039d86309c4dc98c4ce0"; // pune cheile tale reale
 const apiKey = "6c457c3ad93930d7a9b1";
 const photoSlider = document.getElementById('photoSlider');
 
 let imageURLs = [];
 let currentIndex = 0;
+
+const previewContainer = document.getElementById('previewContainer');
+const galleryModal = document.getElementById('galleryModal');
+const modalContent = document.getElementById('modalContent');
+const previewSection = document.getElementById('preview');
 
 async function fetchImages() {
   const res = await fetch('https://api.uploadcare.com/files/', {
@@ -18,12 +23,15 @@ async function fetchImages() {
 
   if(imageURLs.length === 0) {
     photoSlider.textContent = "Nu sunt poze disponibile.";
+    previewContainer.innerHTML = "";
   } else {
     startCarousel();
   }
 }
 
-async function uploadFile(file) {
+async function uploadImage() {
+  const input = document.getElementById('fileInput');
+  const file = input.files[0];
   if (!file) return alert("Alege o poză!");
 
   const formData = new FormData();
@@ -35,7 +43,7 @@ async function uploadFile(file) {
     body: formData,
   });
 
-  await fetchImages();
+  await fetchImages(); // Reîncarcă lista și repornește caruselul
 }
 
 function startCarousel() {
@@ -53,6 +61,7 @@ function showImages() {
 
   if (imageURLs.length === 0) {
     photoSlider.textContent = "Nu sunt poze disponibile.";
+    previewContainer.innerHTML = "";
     return;
   }
 
@@ -67,9 +76,39 @@ function showImages() {
 
   photoSlider.appendChild(imgLeft);
   photoSlider.appendChild(imgRight);
+
+  updatePreview();
+}
+
+function updatePreview() {
+  previewContainer.innerHTML = "";
+  imageURLs.forEach(url => {
+    const img = document.createElement('img');
+    img.src = url;
+    previewContainer.appendChild(img);
+  });
+}
+
+previewSection.addEventListener('click', () => {
+  openGallery();
+});
+
+function openGallery() {
+  modalContent.innerHTML = "";
+  imageURLs.forEach(url => {
+    const img = document.createElement('img');
+    img.src = url;
+    modalContent.appendChild(img);
+  });
+  galleryModal.style.display = 'flex';
+}
+
+function closeGallery() {
+  galleryModal.style.display = 'none';
 }
 
 window.onload = async () => {
   await fetchImages();
 };
+
 
