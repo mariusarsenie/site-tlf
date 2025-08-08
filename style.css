@@ -7,15 +7,16 @@ body {
 }
 
 header {
-  background-color: #e0b3dc;
-  padding: 1.5rem;
+  background: url('Avion-imagini-avioane-foto-avion-fotografii-avioane-hd-airplane-cer-nori-airplanes-18.jpg') no-repeat center/cover;
+  color: #fff;
   text-align: center;
-  border-bottom: 3px solid #a64ca6;
+  padding: 3rem 1rem;
+  position: relative;
 }
 
 header h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.2rem;
 }
 
 main {
@@ -30,99 +31,88 @@ main {
 .upload input,
 .upload button {
   margin: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.6rem 1rem;
   font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #e0b3dc;
+  color: #4b004f;
+  cursor: pointer;
 }
 
-.gallery h2 {
+.upload button:hover {
+  background-color: #d68dc9;
+}
+
+.gallery h2,
+.all-photos h2 {
   text-align: center;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 .slider {
   display: flex;
-  overflow-x: auto;
+  justify-content: center;
   gap: 1rem;
   padding: 1rem;
-  scroll-snap-type: x mandatory;
 }
 
 .slider img {
   height: 200px;
   border-radius: 10px;
-  scroll-snap-align: center;
+  transition: transform 0.5s ease-in-out;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Preview container (miniaturi fixe) */
-.preview-container {
-  margin: 20px auto;
-  max-width: 600px;
-  text-align: center;
-  cursor: pointer;
-  user-select: none;
-}
-
-.preview-photos {
+.thumb-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
   justify-content: center;
+  padding: 1rem;
 }
 
-.preview-photos img {
+.thumb-grid img {
   width: 80px;
   height: 80px;
   object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-  transition: transform 0.2s ease;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-.preview-photos img:hover {
-  transform: scale(1.1);
-}
-
-/* Galeria mare fullscreen */
-.full-gallery {
+.modal {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0,0.8);
-  overflow-y: auto;
-  padding: 30px 20px;
-  box-sizing: border-box;
-  z-index: 9999;
-}
-
-.full-gallery.hidden {
-  display: none;
-}
-
-#closeGallery {
-  background: #fff0f9;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  border-radius: 30px;
-  cursor: pointer;
-  margin-bottom: 20px;
-}
-
-.gallery-photos {
-  display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
-  gap: 15px;
-}
-
-.gallery-photos img {
   width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  overflow: auto;
+  z-index: 1000;
 }
+
+.modal-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 2rem;
+  justify-content: center;
+}
+
+.modal-content img {
+  width: 200px;
+  height: auto;
+  border-radius: 10px;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #e0b3dc;
+  margin-top: 3rem;
+}
+
 
 
