@@ -1,9 +1,10 @@
 const pubKey = "039d86309c4dc98c4ce0";
 const apiKey = "6c457c3ad93930d7a9b1";
+
 const photoSlider = document.getElementById('photoSlider');
-const thumbGrid = document.getElementById('thumbGrid');
-const modal = document.getElementById('galleryModal');
-const modalContent = document.getElementById('modalContent');
+const staticGallery = document.getElementById('staticGallery');
+const fullGallery = document.getElementById('fullGallery');
+const fullGalleryImages = document.getElementById('fullGalleryImages');
 
 let imageURLs = [];
 let currentIndex = 0;
@@ -15,21 +16,68 @@ async function fetchImages() {
       'Accept': 'application/json',
     }
   });
-  const data = await res.json();
 
-  imageURLs = data.results.slice(0, 100).map(file => `https://ucarecdn.com/${file.uuid}/-/preview/400x400/`);
+  const data = await res.json();
+  imageURLs = data.results.slice(0, 50).map(file => `https://ucarecdn.com/${file.uuid}/-/preview/400x400/`);
 
   if (imageURLs.length === 0) {
     photoSlider.textContent = "Nu sunt poze disponibile.";
   } else {
     startCarousel();
-    showThumbnails();
+    buildStaticGallery();
+    buildFullGallery();
   }
 }
 
-async function uploadImage(event) {
-  const file = event.target.files[0];
-  if (!file) return alert("Alege o poză!");
+function showImages() {
+  photoSlider.innerHTML = '';
+  const img1 = new Image();
+  const img2 = new Image();
+
+  img1.src = imageURLs[currentIndex % imageURLs.length];
+  img2.src = imageURLs[(currentIndex + 1) % imageURLs.length];
+
+  photoSlider.appendChild(img1);
+  photoSlider.appendChild(img2);
+}
+
+function startCarousel() {
+  showImages();
+  if (window.carouselInterval) clearInterval(window.carouselInterval);
+  window.carouselInterval = setInterval(() => {
+    currentIndex = (currentIndex + 2) % imageURLs.length;
+    showImages();
+  }, 2000);
+}
+
+function buildStaticGallery() {
+  staticGallery.innerHTML = '';
+  imageURLs.forEach(url => {
+    const img = new Image();
+    img.src = url;
+    staticGallery.appendChild(img);
+  });
+}
+
+function buildFullGallery() {
+  fullGalleryImages.innerHTML = '';
+  imageURLs.forEach(url => {
+    const img = new Image();
+    img.src = url;
+    fullGalleryImages.appendChild(img);
+  });
+}
+
+function toggleFullGallery() {
+  fullGallery.classList.toggle('hidden');
+}
+
+async function uploadSelectedImage() {
+  const cameraFile = document.getElementById('cameraInput').files[0];
+  const galleryFile = document.getElementById('galleryInput').files[0];
+  const file = cameraFile || galleryFile;
+
+  if (!file) return alert("Alege o poză mai întâi!");
 
   const formData = new FormData();
   formData.append("UPLOADCARE_PUB_KEY", pubKey);
@@ -43,64 +91,4 @@ async function uploadImage(event) {
   await fetchImages();
 }
 
-function startCarousel() {
-  showImages();
-  if (window.carouselInterval) clearInterval(window.carouselInterval);
-
-  window.carouselInterval = setInterval(() => {
-    currentIndex = (currentIndex + 2) % imageURLs.length;
-    showImages();
-  }, 2000);
-}
-
-function showImages() {
-  photoSlider.innerHTML = "";
-
-  if (imageURLs.length === 0) {
-    photoSlider.textContent = "Nu sunt poze disponibile.";
-    return;
-  }
-
-  const imgLeft = document.createElement('img');
-  const imgRight = document.createElement('img');
-
-  imgLeft.src = imageURLs[currentIndex % imageURLs.length];
-  imgRight.src = imageURLs[(currentIndex + 1) % imageURLs.length];
-
-  photoSlider.appendChild(imgLeft);
-  photoSlider.appendChild(imgRight);
-}
-
-function showThumbnails() {
-  thumbGrid.innerHTML = "";
-  imageURLs.forEach(url => {
-    const img = document.createElement('img');
-    img.src = url;
-    img.onclick = openFullGallery;
-    thumbGrid.appendChild(img);
-  });
-
-  modalContent.innerHTML = "";
-  imageURLs.forEach(url => {
-    const img = document.createElement('img');
-    img.src = url;
-    modalContent.appendChild(img);
-  });
-}
-
-function openFullGallery() {
-  modal.style.display = "block";
-}
-
-function closeFullGallery() {
-  modal.style.display = "none";
-}
-
-// Atașare pentru cele două input-uri
-document.getElementById('cameraInput').addEventListener('change', uploadImage);
-document.getElementById('galleryInput').addEventListener('change', uploadImage);
-
 window.onload = fetchImages;
-
-
-
