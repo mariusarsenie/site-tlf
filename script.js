@@ -1,8 +1,9 @@
 const pubKey = "039d86309c4dc98c4ce0";
 const apiKey = "6c457c3ad93930d7a9b1";
 const photoSlider = document.getElementById('photoSlider');
-const thumbnailGallery = document.getElementById('thumbnailGallery');
-const allPhotos = document.getElementById('allPhotos');
+const miniGallery = document.getElementById('miniGallery');
+const fullGalleryOverlay = document.getElementById('fullGalleryOverlay');
+const fullGallery = document.getElementById('fullGallery');
 
 let imageURLs = [];
 let currentIndex = 0;
@@ -14,58 +15,46 @@ async function fetchImages() {
       'Accept': 'application/json',
     }
   });
-
   const data = await res.json();
 
-  imageURLs = data.results
-    .filter(file => file.is_image)
-    .slice(0, 50)
-    .map(file => `https://ucarecdn.com/${file.uuid}/-/preview/400x400/`);
+  imageURLs = data.results.slice(0, 20).map(file => `https://ucarecdn.com/${file.uuid}/-/preview/400x400/`);
 
-  showThumbnails();
-  startCarousel();
+  if (imageURLs.length === 0) {
+    photoSlider.textContent = "Nu sunt poze disponibile.";
+    miniGallery.innerHTML = "";
+  } else {
+    startCarousel();
+    updateMiniGallery();
+  }
 }
 
-function showThumbnails() {
-  thumbnailGallery.innerHTML = "";
-  allPhotos.innerHTML = "";
-
+function updateMiniGallery() {
+  miniGallery.innerHTML = "";
   imageURLs.forEach(url => {
-    const thumb = document.createElement('img');
-    thumb.src = url;
-    thumbnailGallery.appendChild(thumb);
-
-    const full = document.createElement('img');
-    full.src = url;
-    allPhotos.appendChild(full);
+    const img = document.createElement('img');
+    img.src = url;
+    miniGallery.appendChild(img);
   });
 }
 
-function toggleFullGallery() {
-  const fullGallery = document.getElementById('fullGallery');
-  fullGallery.classList.toggle('visible');
+function openFullGallery() {
+  fullGalleryOverlay.style.display = "flex";
+  fullGallery.innerHTML = "";
+  imageURLs.forEach(url => {
+    const img = document.createElement('img');
+    img.src = url;
+    fullGallery.appendChild(img);
+  });
 }
 
-function uploadImage() {
-  const cameraFile = document.getElementById('cameraInput').files[0];
-  const galleryFile = document.getElementById('galleryInput').files[0];
-  const file = cameraFile || galleryFile;
-
-  if (!file) return alert("Alege sau fă o poză mai întâi!");
-
-  const formData = new FormData();
-  formData.append("UPLOADCARE_PUB_KEY", pubKey);
-  formData.append("file", file);
-
-  fetch("https://upload.uploadcare.com/base/", {
-    method: "POST",
-    body: formData,
-  }).then(() => fetchImages());
+function closeFullGallery() {
+  fullGalleryOverlay.style.display = "none";
 }
 
 function startCarousel() {
   showImages();
-  if(window.carouselInterval) clearInterval(window.carouselInterval);
+  if (window.carouselInterval) clearInterval(window.carouselInterval);
+
   window.carouselInterval = setInterval(() => {
     currentIndex = (currentIndex + 2) % imageURLs.length;
     showImages();
@@ -74,20 +63,36 @@ function startCarousel() {
 
 function showImages() {
   photoSlider.innerHTML = "";
+  const imgLeft = document.createElement('img');
+  const imgRight = document.createElement('img');
 
-  if (imageURLs.length === 0) {
-    photoSlider.textContent = "Nu sunt poze încă.";
-    return;
-  }
+  imgLeft.src = imageURLs[currentIndex % imageURLs.length];
+  imgRight.src = imageURLs[(currentIndex + 1) % imageURLs.length];
 
-  const img1 = document.createElement('img');
-  const img2 = document.createElement('img');
-
-  img1.src = imageURLs[currentIndex % imageURLs.length];
-  img2.src = imageURLs[(currentIndex + 1) % imageURLs.length];
-
-  photoSlider.appendChild(img1);
-  photoSlider.appendChild(img2);
+  photoSlider.appendChild(imgLeft);
+  photoSlider.appendChild(imgRight);
 }
+
+async function uploadImage(file) {
+  if (!file) return alert("Alege o poză!");
+  const formData = new FormData();
+  formData.append("UPLOADCARE_PUB_KEY", pubKey);
+  formData.append("file", file);
+
+  await fetch("https://upload.uploadcare.com/base/", {
+    method: "POST",
+    body: formData,
+  });
+
+  await fetchImages();
+}
+
+document.getElementById('cameraInput').addEventListener('change', e => {
+  uploadImage(e.target.files[0]);
+});
+
+document.getElementById('galleryInput').addEventListener('change', e => {
+  uploadImage(e.target.files[0]);
+});
 
 window.onload = fetchImages;
