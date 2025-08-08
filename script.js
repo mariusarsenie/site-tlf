@@ -33,17 +33,17 @@ function startCarousel() {
 function showImages() {
   photoSlider.innerHTML = "";
 
-  const img1 = document.createElement('img');
-  const img2 = document.createElement('img');
+  const imgLeft = document.createElement('img');
+  const imgRight = document.createElement('img');
 
-  img1.src = imageURLs[currentIndex % imageURLs.length];
-  img2.src = imageURLs[(currentIndex + 1) % imageURLs.length];
+  imgLeft.src = imageURLs[currentIndex % imageURLs.length];
+  imgRight.src = imageURLs[(currentIndex + 1) % imageURLs.length];
 
-  img1.classList.add("active");
-  img2.classList.add("active");
+  imgLeft.classList.add("left");
+  imgRight.classList.add("right");
 
-  photoSlider.appendChild(img1);
-  photoSlider.appendChild(img2);
+  photoSlider.appendChild(imgLeft);
+  photoSlider.appendChild(imgRight);
 }
 
 async function uploadImage() {
