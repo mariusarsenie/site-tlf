@@ -1,118 +1,121 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #fff0f9;
   margin: 0;
   padding: 0;
-  color: #4b004f;
+  background-image: url('avion-imagini.jpg');
+  background-size: cover;
+  background-position: center;
+  color: #fff;
 }
 
 header {
-  background: url('Avion-imagini-avioane-foto-avion-fotografii-avioane-hd-airplane-cer-nori-airplanes-18.jpg') no-repeat center/cover;
-  color: #fff;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
   text-align: center;
-  padding: 3rem 1rem;
-  position: relative;
+  color: #fff;
 }
 
 header h1 {
   margin: 0;
-  font-size: 2.2rem;
+  font-size: 2.5rem;
+}
+
+.plane-icon {
+  width: 50px;
+  height: auto;
+  margin-bottom: 10px;
 }
 
 main {
   padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .upload {
-  margin-bottom: 2rem;
   text-align: center;
+  margin-bottom: 2rem;
 }
 
-.upload input,
 .upload button {
   margin: 0.5rem;
-  padding: 0.6rem 1rem;
+  padding: 0.7rem 1.2rem;
   font-size: 1rem;
+  background-color: #ffccff;
   border: none;
-  border-radius: 8px;
-  background-color: #e0b3dc;
-  color: #4b004f;
-  cursor: pointer;
-}
-
-.upload button:hover {
-  background-color: #d68dc9;
-}
-
-.gallery h2,
-.all-photos h2 {
-  text-align: center;
-  margin-bottom: 1rem;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 .slider {
   display: flex;
-  justify-content: center;
+  overflow-x: auto;
   gap: 1rem;
+  scroll-snap-type: x mandatory;
   padding: 1rem;
 }
 
 .slider img {
   height: 200px;
   border-radius: 10px;
-  transition: transform 0.5s ease-in-out;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  scroll-snap-align: center;
+  box-shadow: 0 0 10px black;
 }
 
-.thumb-grid {
+.all-photos-preview {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.thumbnails {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 0.5rem;
   justify-content: center;
-  padding: 1rem;
 }
 
-.thumb-grid img {
+.thumbnails img {
   width: 80px;
   height: 80px;
   object-fit: cover;
-  border-radius: 6px;
-  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 0 4px black;
 }
 
 .modal {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.8);
-  overflow: auto;
-  z-index: 1000;
+  z-index: 999;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  overflow-y: auto;
+}
+
+.modal .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 3rem;
+  color: white;
+  cursor: pointer;
 }
 
 .modal-content {
+  margin: 5% auto;
+  padding: 1rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  padding: 2rem;
   justify-content: center;
+  gap: 1rem;
 }
 
 .modal-content img {
-  width: 200px;
+  max-width: 300px;
   height: auto;
   border-radius: 10px;
 }
-
-footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: #e0b3dc;
-  margin-top: 3rem;
-}
-
-
 
