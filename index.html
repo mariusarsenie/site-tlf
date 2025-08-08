@@ -3,27 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nunta Adina & Ionuț</title>
+  <title>Wedding Airlines – Adina & Ionuț</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Nunta Adina & Ionuț</h1>
-    <p>25 Octombrie 2025</p>
+    <img src="plane-icon.png" alt="Plane Icon" class="plane-icon" />
+    <h1>Wedding Airlines: Adina & Ionuț</h1>
+    <p>25 Octombrie 2025 · Wedding Terminal A</p>
+    <div class="countdown" id="countdown"></div>
   </header>
 
   <main>
     <section class="upload">
-      <h2>Încarcă o poză de la nuntă</h2>
+      <h2>📸 Încarcă un selfie de la bord</h2>
       <input type="file" id="fileInput" accept="image/*" capture="environment"/>
-      <button onclick="uploadImage()">Încarcă poza</button>
+      <button onclick="uploadImage()">📤 Încarcă poza</button>
     </section>
 
     <section class="gallery">
-      <h2>Galerie de selfie-uri</h2>
+      <h2>🛫 Galerie de amintiri de la zborul iubirii</h2>
       <div id="photoSlider" class="slider"></div>
     </section>
   </main>
+
+  <footer>
+    <p>Mulțumim că zburați cu noi! ✈️</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
