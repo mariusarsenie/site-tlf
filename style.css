@@ -1,18 +1,17 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
+  background: url('background.jpg') no-repeat center center fixed;
+  background-size: cover;
   margin: 0;
   padding: 0;
-  background-image: url('avion-imagini.jpg');
-  background-size: cover;
-  background-position: center;
   color: #fff;
+  text-shadow: 0 1px 3px #000;
 }
 
 header {
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 1.5rem;
   text-align: center;
-  color: #fff;
 }
 
 header h1 {
@@ -22,7 +21,7 @@ header h1 {
 
 .plane-icon {
   width: 50px;
-  height: auto;
+  vertical-align: middle;
   margin-bottom: 10px;
 }
 
@@ -36,86 +35,84 @@ main {
   margin-bottom: 2rem;
 }
 
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
 .upload button {
-  margin: 0.5rem;
-  padding: 0.7rem 1.2rem;
+  padding: 0.7rem 1.5rem;
   font-size: 1rem;
-  background-color: #ffccff;
-  border: none;
-  border-radius: 5px;
   cursor: pointer;
+}
+
+.gallery h2, .mini-gallery h3, .full-gallery h2 {
+  text-align: center;
 }
 
 .slider {
   display: flex;
-  overflow-x: auto;
+  justify-content: center;
   gap: 1rem;
-  scroll-snap-type: x mandatory;
-  padding: 1rem;
+  overflow: hidden;
+  flex-wrap: nowrap;
+  padding: 1rem 0;
 }
 
 .slider img {
-  height: 200px;
+  width: 40%;
+  max-width: 300px;
   border-radius: 10px;
-  scroll-snap-align: center;
-  box-shadow: 0 0 10px black;
+  transition: transform 0.3s ease-in-out;
 }
 
-.all-photos-preview {
-  margin-top: 2rem;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+.static-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
   cursor: pointer;
+  padding: 1rem;
+}
+
+.static-gallery img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border: 2px solid white;
+  border-radius: 5px;
+}
+
+.full-gallery {
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 1rem;
   text-align: center;
 }
 
-.thumbnails {
+.full-gallery-images {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
   justify-content: center;
+  gap: 10px;
+  margin-bottom: 1rem;
 }
 
-.thumbnails img {
-  width: 80px;
-  height: 80px;
+.full-gallery-images img {
+  width: 120px;
+  height: 120px;
   object-fit: cover;
-  border-radius: 5px;
-  box-shadow: 0 0 4px black;
+  border-radius: 8px;
+  border: 2px solid #fff;
 }
 
-.modal {
+.hidden {
   display: none;
-  position: fixed;
-  z-index: 999;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.9);
-  overflow-y: auto;
 }
 
-.modal .close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 3rem;
-  color: white;
-  cursor: pointer;
-}
-
-.modal-content {
-  margin: 5% auto;
+footer {
+  text-align: center;
   padding: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
+  background-color: rgba(0, 0, 0, 0.6);
 }
-
-.modal-content img {
-  max-width: 300px;
-  height: auto;
-  border-radius: 10px;
-}
-
