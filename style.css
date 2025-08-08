@@ -1,87 +1,69 @@
-/* Fundal cu poza avionului și cer */
 body {
-  font-family: Arial, sans-serif;
-  background: url('Avion-imagini-avioane-foto-avion-fotografii-avioane-hd-airplane-cer-nori-airplanes-18.jpg') no-repeat center center fixed;
-  background-size: cover;
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
   padding: 0;
-  color: #4b004f;
+  background-image: url('Avion-imagini-avioane-foto-avion-fotografii-avioane-hd-airplane-cer-nori-airplanes-18.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: #222;
 }
 
 header {
-  background-color: rgba(224, 179, 220, 0.85); /* roz-pal semi-transparent */
-  padding: 1.5rem;
   text-align: center;
-  border-bottom: 3px solid #a64ca6;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  padding: 2rem 1rem 1rem 1rem;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+header .plane-icon {
+  width: 80px;
+  margin-bottom: 0.5rem;
 }
 
 header h1 {
   margin: 0;
   font-size: 2rem;
+  color: #003366;
 }
 
-.plane-icon {
-  width: 50px;
-  vertical-align: middle;
-  margin-right: 10px;
+header p {
+  margin: 0.2rem 0;
+  font-size: 1rem;
 }
 
 main {
   padding: 2rem;
-  background-color: rgba(255, 240, 249, 0.85); /* roz pal semi-transparent */
-  border-radius: 12px;
-  max-width: 900px;
-  margin: 2rem auto 4rem auto;
-  box-shadow: 0 0 15px rgba(75, 0, 79, 0.3);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .upload {
-  margin-bottom: 2rem;
   text-align: center;
+  margin-bottom: 2rem;
 }
 
-.button-group {
+.upload-buttons {
   margin-bottom: 1rem;
 }
 
-.button-group button {
-  margin: 0 0.5rem;
-  padding: 0.6rem 1.3rem;
+.upload button {
+  padding: 0.6rem 1.2rem;
+  margin: 0.5rem;
   font-size: 1rem;
-  cursor: pointer;
-  border: 2px solid #a64ca6;
-  background: #fff0f9;
-  color: #4b004f;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
-}
-
-.button-group button:hover {
-  background-color: #a64ca6;
-  color: white;
-}
-
-.upload > button {
-  padding: 0.6rem 2rem;
-  font-size: 1.1rem;
-  cursor: pointer;
   border: none;
-  background-color: #a64ca6;
+  background-color: #0066cc;
   color: white;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.upload > button:hover {
-  background-color: #7a357a;
+.upload button:hover {
+  background-color: #004080;
 }
 
 .gallery h2,
 .mini-gallery h3,
-.full-gallery h2 {
+.full-gallery h3 {
   text-align: center;
   margin-bottom: 1rem;
 }
@@ -90,75 +72,62 @@ main {
   display: flex;
   justify-content: center;
   gap: 1rem;
-  padding: 1rem 0;
   overflow: hidden;
 }
 
 .slider img {
   height: 200px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(75, 0, 79, 0.3);
-  object-fit: cover;
-  width: 45%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.static-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
+.mini-gallery {
+  margin-top: 3rem;
   cursor: pointer;
-  padding: 0.5rem;
-  border: 2px solid #a64ca6;
-  border-radius: 10px;
-  background-color: #fff0f9;
-}
-
-.static-gallery img {
-  width: 60px;
-  height: 60px;
-  border-radius: 8px;
-  object-fit: cover;
-  border: 2px solid #a64ca6;
-  transition: transform 0.3s ease;
-}
-
-.static-gallery img:hover {
-  transform: scale(1.15);
-}
-
-.full-gallery {
-  padding: 1rem;
-  background-color: #fff0f9;
-  border: 2px solid #a64ca6;
-  border-radius: 10px;
-  margin-top: 2rem;
   text-align: center;
 }
 
-.full-gallery-images {
+.thumbnails {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 1rem;
+  gap: 8px;
+  margin-top: 1rem;
 }
 
-.full-gallery-images img {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 2px solid #a64ca6;
+.thumbnails img {
+  height: 80px;
+  border-radius: 5px;
 }
 
-.hidden {
+.full-gallery {
   display: none;
+  text-align: center;
+  margin-top: 2rem;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.full-gallery.visible {
+  display: block;
+}
+
+.all-photos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.all-photos img {
+  height: 120px;
+  border-radius: 5px;
 }
 
 footer {
   text-align: center;
   padding: 1rem;
-  border-top: 3px solid #a64ca6;
-  margin-top: 3rem;
+  background-color: rgba(255, 255, 255, 0.7);
 }
