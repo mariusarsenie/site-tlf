@@ -47,7 +47,6 @@ function startCarousel() {
   window.carouselInterval = setInterval(() => {
     currentIndex = (currentIndex + 2) % imageURLs.length;
     showImages();
-    console.log("Schimb imagini la index:", currentIndex);
   }, 2000);
 }
 
