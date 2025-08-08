@@ -63,7 +63,6 @@ body {
   gap: 1rem;
   padding: 1rem;
   overflow: hidden;
-  flex-wrap: wrap;
 }
 
 .slider img {
@@ -72,8 +71,6 @@ body {
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   cursor: pointer;
   transition: transform 0.3s ease;
-  max-width: 45%;
-  object-fit: cover;
 }
 
 .slider img:hover {
@@ -82,19 +79,15 @@ body {
 
 /* TOATE POZELE - SECȚIUNEA CU GRILĂ */
 .allPhotosSection {
-  background-color: rgba(255,255,255,0.85);
+  background: url('cer-nori.jpg') no-repeat center center;
+  background-size: cover;
   margin: 2rem auto;
   max-width: 90vw;
   border-radius: 10px;
   padding: 1rem;
   cursor: pointer;
-  position: fixed;
-  top: 140px;
-  left: 5%;
-  right: 5%;
-  bottom: 5%;
-  overflow-y: auto;
-  z-index: 1500;
+  color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .allPhotosGrid {
@@ -119,3 +112,4 @@ footer {
   color: #724a92;
   font-weight: bold;
 }
+
