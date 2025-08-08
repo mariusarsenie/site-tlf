@@ -44,13 +44,11 @@ main {
 /* ========================= */
 
 .slider {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  height: 300px;
   position: relative;
-  gap: 2rem;
+  height: 300px;
+  width: 600px; /* lățimea totală */
+  margin: 0 auto;
+  overflow: visible; /* să arate și poza rotită în afara containerului */
 }
 
 .slider img {
@@ -58,13 +56,24 @@ main {
   height: 250px;
   object-fit: cover;
   border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 50%;
+  transform-style: preserve-3d;
   transition: transform 1s ease, opacity 1s ease;
   opacity: 0;
-  transform: scale(0.8) rotateY(45deg);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.slider img.active {
+.slider img.left {
+  left: 25%;
+  transform: translateY(-50%) rotateY(-45deg) scale(0.8);
   opacity: 1;
-  transform: scale(1) rotateY(0deg);
+  z-index: 1;
+}
+
+.slider img.right {
+  right: 25%;
+  transform: translateY(-50%) rotateY(45deg) scale(0.8);
+  opacity: 1;
+  z-index: 1;
 }
