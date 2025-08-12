@@ -3,18 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nunta Adina & Dada</title>
+  <title>Nunta Adina & Ionuț</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Container cu poza avion și text suprapus -->
+  <!-- Bandă cu avion și text peste -->
   <div class="header-image">
-    <img src="Avion-imagini-avioane-foto-avion-fotografii-avioane-hd-airplane-cer-nori-airplanes-18.jpg" alt="Avion" />
-    <div class="text-on-image">
-      Nunta Adina și Dada
-      <div class="small-text">25 Octombrie 2025</div>
-    </div>
+    <img
+      src="Avion-imagini-avioane-foto-avion-fotografii-avioane-hd-airplane-cer-nori-airplanes-18.jpg"
+      alt="Avion"
+    />
+    <div class="text-on-image">Nunta Adina și Ionuț</div>
   </div>
+
+  <!-- Data sub poza avion -->
+  <div class="date-under-image">25 Octombrie 2025</div>
 
   <!-- Încărcare poză -->
   <section class="upload-section">
@@ -23,19 +26,24 @@
     <button onclick="uploadImage()">Încarcă poza</button>
   </section>
 
-  <!-- Galerie mică (slider) -->
+  <!-- Galerie -->
   <section class="gallery-section">
     <h2>Galerie de selfie-uri</h2>
     <div id="photoSlider"></div>
-    <button id="showAllBtn" onclick="toggleGallery()">Vezi toate pozele</button>
+    <button id="viewAllBtn" onclick="showAllPhotos()">Vezi toate pozele</button>
   </section>
 
-  <!-- Galerie mare, inițial ascunsă -->
-  <section class="gallery-all-section hidden">
+  <!-- Galerie completă -->
+  <section id="allPhotosSection" class="all-photos-section" style="display:none;">
     <h2>Toate pozele</h2>
-    <div id="galleryAll"></div>
-    <button onclick="toggleGallery()">Închide galeria</button>
+    <button onclick="closeAllPhotos()">Înapoi</button>
+    <div id="allPhotosGallery"></div>
   </section>
+
+  <!-- Popup imagine mare -->
+  <div id="imagePopup" class="image-popup" onclick="closePopup()">
+    <img id="popupImg" src="" alt="Poza mărită" />
+  </div>
 
   <script src="script.js"></script>
 </body>
