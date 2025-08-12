@@ -1,22 +1,19 @@
-const pubKey = "039d86309c4dc98c4ce0"; // Schimbă dacă vrei
-const apiKey = "6c457c3ad93930d7a9b1";
-
+const pubKey = "039d86309c4dc98c4ce0"; // Cheia publică Uploadcare
+const apiKey = "6c457c3ad93930d7a9b1"; // Cheia privată API
 const photoSlider = document.getElementById('photoSlider');
-const showAllBtn = document.getElementById('showAllBtn');
-const allGallerySection = document.querySelector('.all-gallery-section');
-const allPhotosGrid = document.getElementById('allPhotosGrid');
-const closeAllBtn = document.getElementById('closeAllBtn');
-
-const modal = document.getElementById('modal');
-const modalImg = document.getElementById('modalImg');
-const modalClose = document.getElementById('modalClose');
 
 let imageURLs = [];
 let currentIndex = 0;
+let carouselInterval = null;
+let showingAll = false;
 
-async function fetchImages() {
-  try {
-    const res = await fetch('https://api.uploadcare.com/files/', {
+// Preia toate pozele din Uploadcare cu paginare
+async function fetchAllImages() {
+  let allResults = [];
+  let url = 'https://api.uploadcare.com/files/?limit=100';
+
+  while (url) {
+    const res = await fetch(url, {
       headers: {
         'Authorization': 'Uploadcare.Simple ' + pubKey + ':' + apiKey,
         'Accept': 'application/json',
@@ -24,22 +21,78 @@ async function fetchImages() {
     });
     const data = await res.json();
 
-    imageURLs = data.results.slice(0, 20).map(file => `https://ucarecdn.com/${file.uuid}/-/preview/400x400/`);
-
-    if (imageURLs.length === 0) {
-      photoSlider.textContent = "Nu sunt poze disponibile.";
-      showAllBtn.style.display = "none";
-    } else {
-      showAllBtn.style.display = "inline-block";
-      startCrossfadeCarousel();
-      prepareAllGallery();
-    }
-  } catch (e) {
-    photoSlider.textContent = "Eroare la încărcarea pozelor.";
-    console.error(e);
+    allResults = allResults.concat(data.results);
+    url = data.next; // URL-ul paginii următoare, sau null dacă s-a terminat
   }
+
+  imageURLs = allResults.map(file => `https://ucarecdn.com/${file.uuid}/-/preview/400x400/`);
 }
 
+// Afișează două poze ca slider (carousel)
+function showImages() {
+  photoSlider.innerHTML = "";
+
+  if (imageURLs.length === 0) {
+    photoSlider.textContent = "Nu sunt poze disponibile.";
+    return;
+  }
+
+  const imgLeft = document.createElement('img');
+  const imgRight = document.createElement('img');
+
+  imgLeft.src = imageURLs[currentIndex % imageURLs.length];
+  imgRight.src = imageURLs[(currentIndex + 1) % imageURLs.length];
+
+  imgLeft.classList.add("left");
+  imgRight.classList.add("right");
+
+  // Adaugă click pe poză pentru mărire
+  imgLeft.addEventListener('click', () => openModal(imgLeft.src));
+  imgRight.addEventListener('click', () => openModal(imgRight.src));
+
+  photoSlider.appendChild(imgLeft);
+  photoSlider.appendChild(imgRight);
+}
+
+// Porneste carousel-ul (slider-ul cu 2 poze care se schimba)
+function startCarousel() {
+  showImages();
+  if (carouselInterval) clearInterval(carouselInterval);
+
+  carouselInterval = setInterval(() => {
+    currentIndex = (currentIndex + 2) % imageURLs.length;
+    showImages();
+  }, 2000);
+}
+
+// Buton pentru a arăta toate pozele
+function showAllImages() {
+  showingAll = true;
+  if (carouselInterval) clearInterval(carouselInterval);
+
+  photoSlider.innerHTML = "";
+
+  if (imageURLs.length === 0) {
+    photoSlider.textContent = "Nu sunt poze disponibile.";
+    return;
+  }
+
+  // Creează o galerie grid cu toate pozele
+  const galleryDiv = document.createElement('div');
+  galleryDiv.classList.add('all-gallery');
+
+  imageURLs.forEach(url => {
+    const img = document.createElement('img');
+    img.src = url;
+    img.classList.add('gallery-thumb');
+    img.addEventListener('click', () => openModal(url));
+    galleryDiv.appendChild(img);
+  });
+
+  photoSlider.appendChild(galleryDiv);
+}
+
+// Upload imagine nouă în Uploadcare
 async function uploadImage() {
   const input = document.getElementById('fileInput');
   const file = input.files[0];
@@ -49,100 +102,66 @@ async function uploadImage() {
   formData.append("UPLOADCARE_PUB_KEY", pubKey);
   formData.append("file", file);
 
-  try {
-    await fetch("https://upload.uploadcare.com/base/", {
-      method: "POST",
-      body: formData,
-    });
-    input.value = "";
-    await fetchImages();
-  } catch (e) {
-    alert("Eroare la încărcare.");
-    console.error(e);
-  }
-}
-
-let crossfadeTimer;
-function startCrossfadeCarousel() {
-  photoSlider.innerHTML = '';
-
-  // Creăm două img pentru crossfade
-  const img1 = document.createElement('img');
-  const img2 = document.createElement('img');
-
-  img1.classList.add('visible');
-  photoSlider.appendChild(img1);
-  photoSlider.appendChild(img2);
-
-  img1.src = imageURLs[0];
-  img2.src = imageURLs[1 % imageURLs.length];
-  currentIndex = 0;
-
-  // Click pe imagine deschide modal
-  img1.onclick = () => openModal(img1.src);
-  img2.onclick = () => openModal(img2.src);
-
-  let visibleImg = img1;
-
-  if(crossfadeTimer) clearInterval(crossfadeTimer);
-
-  crossfadeTimer = setInterval(() => {
-    // Calc următoarea poză
-    const nextIndex = (currentIndex + 2) % imageURLs.length;
-
-    // Schimbăm sursele și opacitățile
-    if (visibleImg === img1) {
-      img2.src = imageURLs[nextIndex];
-      img2.classList.add('visible');
-      img1.classList.remove('visible');
-      visibleImg = img2;
-    } else {
-      img1.src = imageURLs[nextIndex];
-      img1.classList.add('visible');
-      img2.classList.remove('visible');
-      visibleImg = img1;
-    }
-    currentIndex = nextIndex;
-  }, 2000);
-}
-
-function prepareAllGallery() {
-  allPhotosGrid.innerHTML = "";
-  imageURLs.forEach(url => {
-    const img = document.createElement('img');
-    img.src = url;
-    img.alt = "Selfie de la nuntă";
-    img.onclick = () => openModal(url);
-    allPhotosGrid.appendChild(img);
+  await fetch("https://upload.uploadcare.com/base/", {
+    method: "POST",
+    body: formData,
   });
+
+  await initGallery();
 }
 
-showAllBtn.onclick = () => {
-  allGallerySection.classList.remove('hidden');
-  document.querySelector('.gallery-section').classList.add('hidden');
-};
-
-closeAllBtn.onclick = () => {
-  allGallerySection.classList.add('hidden');
-  document.querySelector('.gallery-section').classList.remove('hidden');
-};
-
+// Modal pentru poza mărită
 function openModal(src) {
-  modalImg.src = src;
-  modal.classList.remove('hidden');
+  // Creează un overlay
+  const overlay = document.createElement('div');
+  overlay.classList.add('modal-overlay');
+
+  // Creează imaginea mărită
+  const img = document.createElement('img');
+  img.src = src;
+  img.classList.add('modal-image');
+
+  overlay.appendChild(img);
+
+  // Click pe overlay închide modalul
+  overlay.addEventListener('click', () => {
+    document.body.removeChild(overlay);
+  });
+
+  document.body.appendChild(overlay);
 }
 
-modalClose.onclick = () => {
-  modal.classList.add('hidden');
-  modalImg.src = "";
-};
+// Inițializează și afișează galeria normală
+async function initGallery() {
+  showingAll = false;
+  await fetchAllImages();
 
-// Închide modal și la click pe fundal
-modal.onclick = (e) => {
-  if (e.target === modal) {
-    modal.classList.add('hidden');
-    modalImg.src = "";
+  if (imageURLs.length === 0) {
+    photoSlider.textContent = "Nu sunt poze disponibile.";
+  } else {
+    startCarousel();
   }
-};
+}
 
-window.onload = fetchImages;
+window.onload = () => {
+  initGallery();
+
+  // Adaugă butonul "Vezi toate pozele"
+  const gallerySection = document.querySelector('.gallery-section');
+  const btn = document.createElement('button');
+  btn.textContent = "Vezi toate pozele";
+  btn.style.marginTop = "10px";
+  btn.addEventListener('click', () => {
+    if (showingAll) {
+      // Dacă deja vedem toate, revenim la slider
+      showingAll = false;
+      startCarousel();
+      btn.textContent = "Vezi toate pozele";
+    } else {
+      // Arată toate pozele
+      showAllImages();
+      btn.textContent = "Vezi slider-ul";
+    }
+  });
+  gallerySection.appendChild(btn);
+};
