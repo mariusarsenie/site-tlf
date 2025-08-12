@@ -121,3 +121,4 @@ function closePopup() {
 window.onload = async () => {
   await fetchImages();
 };
+
