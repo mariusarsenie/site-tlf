@@ -1,5 +1,5 @@
-const pubKey = "039d86309c4dc98c4ce0";
-const apiKey = "6c457c3ad93930d7a9b1";
+const pubKey = "039d86309c4dc98c4ce0"; // Înlocuiește dacă faci cheie nouă
+const apiKey = "6c457c3ad93930d7a9b1"; // Cheia privată API
 const photoSlider = document.getElementById('photoSlider');
 
 let imageURLs = [];
