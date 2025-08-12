@@ -31,12 +31,14 @@ header h1 {
 }
 
 /* Secțiuni încărcare și galerie */
-.upload-section, .gallery-section {
+.upload-section, .gallery-section, .all-gallery-section {
   margin: 20px 0;
   background: rgba(255, 255, 255, 0.6);
   padding: 15px;
   border-radius: 10px;
   display: inline-block;
+  width: 90%;
+  max-width: 900px;
 }
 
 /* Galerie slider (două poze) */
@@ -70,7 +72,8 @@ button {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  margin-top: 10px;
+  margin: 10px 5px 0 5px;
+  font-size: 1rem;
 }
 
 button:hover {
