@@ -1,7 +1,7 @@
-/* Fundal cer */
+/* Fundal cer schimbat cu poza ta */
 body {
   font-family: Arial, sans-serif;
-  background: url("fundal-cer.jpg") no-repeat center center fixed;
+  background: url("sky-with-clouds-1587031941zje.jpg") no-repeat center center fixed;
   background-size: cover;
   margin: 0;
   padding: 0;
@@ -24,6 +24,7 @@ body {
   border-radius: 0;
 }
 
+/* Text mare suprapus + data mică */
 .text-on-image {
   position: absolute;
   top: 20px;
@@ -37,6 +38,18 @@ body {
   user-select: none;
   white-space: nowrap;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.small-text {
+  font-size: 1.2rem;
+  font-weight: normal;
+  color: #e0e0e0;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+  white-space: nowrap;
 }
 
 /* Upload și galerie slider */
@@ -138,4 +151,3 @@ button:hover {
   box-shadow: 0 0 20px rgba(255,255,255,0.8);
   cursor: pointer;
 }
-
