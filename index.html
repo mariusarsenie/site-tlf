@@ -1,41 +1,27 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wedding Airlines – Adina & Ionuț</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nunta Adina & Ionuț</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <img src="Avion-imagini-avioane-foto-avion-fotografii-avioane-hd-airplane-cer-nori-airplanes-18.jpg" alt="Avion" class="header-plane" />
+    <h1>Nunta Adina & Ionuț</h1>
+    <p>25 Octombrie 2025</p>
   </header>
 
-  <main>
-    <section class="upload">
-      <h2>📸 Încarcă un selfie de la bord</h2>
-      <div class="buttons-upload">
-        <button onclick="document.getElementById('fileInputCamera').click()">📷 Fă o poză</button>
-        <button onclick="document.getElementById('fileInputGallery').click()">🖼️ Alege din galerie</button>
-      </div>
-      <input type="file" id="fileInputCamera" accept="image/*" capture="environment" style="display:none" onchange="uploadImage(this)" />
-      <input type="file" id="fileInputGallery" accept="image/*" style="display:none" onchange="uploadImage(this)" />
-    </section>
+  <section class="upload-section">
+    <h2>Încarcă o poză de la nuntă</h2>
+    <input type="file" id="fileInput">
+    <button onclick="uploadImage()">Încarcă poza</button>
+  </section>
 
-    <section class="gallery">
-      <h2>🛫 Galerie de amintiri de la zborul iubirii</h2>
-      <div id="photoSlider" class="slider"></div>
-    </section>
-    
-    <section class="allPhotosSection" id="allPhotosSection" style="display:none;">
-      <h3>Toate pozele încărcate (click pentru a închide)</h3>
-      <div id="allPhotosGrid" class="allPhotosGrid"></div>
-    </section>
-  </main>
-
-  <footer>
-    <p>Mulțumim că zburați cu noi! ✈️</p>
-  </footer>
+  <section class="gallery-section">
+    <h2>Galerie de selfie-uri</h2>
+    <div id="photoSlider"></div>
+  </section>
 
   <script src="script.js"></script>
 </body>
