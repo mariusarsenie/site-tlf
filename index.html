@@ -7,35 +7,38 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Banda cu avion si text peste -->
   <div class="header-image">
     <img src="Avion-imagini-avioane-foto-avion-fotografii-avioane-hd-airplane-cer-nori-airplanes-18.jpg" alt="Avion" />
     <div class="header-text">
       <h1>Nunta Adina & Ionuț</h1>
-      <p>25 Octombrie 2025</p>
+      <p class="wedding-date">25 Octombrie 2025</p>
     </div>
   </div>
 
+  <!-- Sectiune incarcare poza -->
   <section class="upload-section">
     <h2>Încarcă o poză de la nuntă</h2>
-    <input
-      type="file"
-      id="fileInput"
-      accept="image/*"
-      capture="environment"
-      multiple
-    />
+    <input type="file" id="fileInput" accept="image/*" capture="environment" />
     <button onclick="uploadImage()">Încarcă poza</button>
   </section>
 
+  <!-- Galerie animata cu 2 poze -->
   <section class="gallery-section">
     <h2>Galerie de selfie-uri</h2>
     <div id="photoSlider"></div>
     <button id="showAllBtn">Vezi toate pozele</button>
   </section>
 
+  <!-- Galerie completa (ascunsa initial) -->
+  <section class="gallery-fullscreen" id="galleryFullscreen" style="display:none;">
+    <button id="closeGalleryBtn">&times; Închide galeria</button>
+    <div id="allPhotos"></div>
+  </section>
+
   <!-- Popup poza mare -->
-  <div id="popup" class="hidden">
-    <span id="closePopup">&times;</span>
+  <div class="popup-overlay" id="popupOverlay" style="display:none;">
+    <span class="popup-close" id="popupClose">&times;</span>
     <img id="popupImage" src="" alt="Poză mare" />
   </div>
 
