@@ -1,120 +1,153 @@
-const pubKey = "039d86309c4dc98c4ce0"; // Înlocuiește dacă faci cheie nouă
-const apiKey = "6c457c3ad93930d7a9b1"; // Cheia privată API
-const photoSlider = document.getElementById("photoSlider");
-const allPhotosSection = document.getElementById("allPhotosSection");
-const allPhotosGallery = document.getElementById("allPhotosGallery");
-const imagePopup = document.getElementById("imagePopup");
-const popupImg = document.getElementById("popupImg");
-
-let imageURLs = [];
-let currentIndex = 0;
-
-async function fetchImages() {
-  const res = await fetch("https://api.uploadcare.com/files/", {
-    headers: {
-      Authorization: "Uploadcare.Simple " + pubKey + ":" + apiKey,
-      Accept: "application/json",
-    },
-  });
-  const data = await res.json();
-
-  imageURLs = data.results
-    .slice(0, 50)
-    .map(
-      (file) =>
-        `https://ucarecdn.com/${file.uuid}/-/preview/400x400/`
-    );
-
-  if (imageURLs.length === 0) {
-    photoSlider.textContent = "Nu sunt poze disponibile.";
-  } else {
-    startCarousel();
-  }
+/* Fundal cer schimbat cu poza ta */
+body {
+  font-family: Arial, sans-serif;
+  background: url("sky-with-clouds-1587031941zje.jpg") no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  color: #003366;
 }
 
-async function uploadImage() {
-  const input = document.getElementById("fileInput");
-  const file = input.files[0];
-  if (!file) return alert("Alege o poză!");
-
-  const formData = new FormData();
-  formData.append("UPLOADCARE_PUB_KEY", pubKey);
-  formData.append("file", file);
-
-  await fetch("https://upload.uploadcare.com/base/", {
-    method: "POST",
-    body: formData,
-  });
-
-  input.value = ""; // resetează inputul
-  await fetchImages();
+/* Container imagine avion + text */
+.header-image {
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
 }
 
-function startCarousel() {
-  showImages();
-  if (window.carouselInterval) clearInterval(window.carouselInterval);
-
-  window.carouselInterval = setInterval(() => {
-    currentIndex = (currentIndex + 2) % imageURLs.length;
-    showImages();
-  }, 2000);
+.header-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0;
 }
 
-function showImages() {
-  photoSlider.innerHTML = "";
-
-  if (imageURLs.length === 0) {
-    photoSlider.textContent = "Nu sunt poze disponibile.";
-    return;
-  }
-
-  // arată doar 2 poze în slider
-  const imgLeft = document.createElement("img");
-  const imgRight = document.createElement("img");
-
-  imgLeft.src = imageURLs[currentIndex % imageURLs.length];
-  imgRight.src = imageURLs[(currentIndex + 1) % imageURLs.length];
-
-  imgLeft.onclick = () => openPopup(imgLeft.src);
-  imgRight.onclick = () => openPopup(imgRight.src);
-
-  photoSlider.appendChild(imgLeft);
-  photoSlider.appendChild(imgRight);
+/* Text mare suprapus + data mică */
+.text-on-image {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
 }
 
-function showAllPhotos() {
-  allPhotosSection.style.display = "block";
-  document.querySelector(".gallery-section").style.display = "none";
-  allPhotosGallery.innerHTML = "";
-
-  if (imageURLs.length === 0) {
-    allPhotosGallery.textContent = "Nu sunt poze disponibile.";
-    return;
-  }
-
-  imageURLs.forEach((url) => {
-    const img = document.createElement("img");
-    img.src = url;
-    img.alt = "Poză nuntă";
-    img.onclick = () => openPopup(url);
-    allPhotosGallery.appendChild(img);
-  });
+.small-text {
+  font-size: 1.2rem;
+  font-weight: normal;
+  color: #e0e0e0;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+  white-space: nowrap;
 }
 
-function closeAllPhotos() {
-  allPhotosSection.style.display = "none";
-  document.querySelector(".gallery-section").style.display = "block";
+/* Upload și galerie slider */
+.upload-section, .gallery-section {
+  margin: 20px auto;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 15px;
+  border-radius: 10px;
+  max-width: 400px;
 }
 
-function openPopup(src) {
-  popupImg.src = src;
-  imagePopup.style.display = "flex";
+/* Galerie slider cu 2 poze mai mici */
+#photoSlider {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
 }
 
-function closePopup() {
-  imagePopup.style.display = "none";
+#photoSlider img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+  cursor: pointer;
+  animation: fadeIn 1s ease-in-out;
 }
 
-window.onload = async () => {
-  await fetchImages();
-};
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #003366;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #00509e;
+}
+
+/* Galerie mare (toate pozele) */
+.gallery-all-section {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 95vw;
+  margin: 20px auto;
+}
+
+.gallery-all-section.hidden {
+  display: none;
+}
+
+#galleryAll {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(100px,1fr));
+  gap: 10px;
+  margin-top: 15px;
+}
+
+#galleryAll img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#galleryAll img:hover {
+  transform: scale(1.05);
+}
+
+/* Popup poza mare */
+#popupOverlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  display: none;
+}
+
+#popupOverlay img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.8);
+  cursor: pointer;
+}
