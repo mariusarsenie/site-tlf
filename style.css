@@ -1,4 +1,3 @@
-/* Fundal cer */
 body {
   font-family: Arial, sans-serif;
   background: url("sky-with-clouds-1587031941zje.jpg") no-repeat center center fixed;
@@ -6,15 +5,14 @@ body {
   margin: 0;
   padding: 0;
   text-align: center;
-  color: #003366; /* Albastru închis pentru contrast pe cer */
+  color: #003366;
 }
 
-/* Container imagine avion + text */
 .header-image {
   position: relative;
   width: 100%;
   height: auto;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 .header-image img {
@@ -23,37 +21,39 @@ body {
   display: block;
 }
 
-/* Text suprapus peste avion - font mai mic, adaptat să nu depășească poza */
 .text-on-image {
   position: absolute;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
   color: white;
-  font-size: 1.8rem; /* mai mic */
+  font-size: 1.8rem;
   font-weight: bold;
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
   pointer-events: none;
   user-select: none;
   white-space: nowrap;
-  max-width: 90%; /* să nu depășească lățimea imaginii */
+  max-width: 90%;
   overflow-wrap: break-word;
   text-align: center;
   z-index: 10;
 }
 
-/* Data sub poza avion */
-.date-under-image {
+.date-on-image {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
   color: white;
-  font-size: 1rem; /* mult mai mic */
-  font-weight: 400;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-  margin-bottom: 10px;
-  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
   user-select: none;
+  white-space: nowrap;
+  z-index: 10;
 }
 
-/* Secțiuni încărcare + galerie */
 .upload-section,
 .gallery-section {
   margin: 20px auto;
@@ -64,7 +64,6 @@ body {
   display: block;
 }
 
-/* Galerie cu fade, poze mai mici pe telefon */
 #photoSlider {
   display: flex;
   justify-content: center;
@@ -72,11 +71,11 @@ body {
   margin-top: 15px;
   flex-wrap: nowrap;
   overflow-x: auto;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
 }
 
 #photoSlider::-webkit-scrollbar {
-  display: none; /* Chrome */
+  display: none;
 }
 
 #photoSlider img {
@@ -113,7 +112,6 @@ button:hover {
   background-color: #00509e;
 }
 
-/* Galerie completă */
 .all-photos-section {
   margin: 20px auto;
   max-width: 90vw;
@@ -146,7 +144,6 @@ button:hover {
   transform: scale(1.1);
 }
 
-/* Popup imagine mare */
 .image-popup {
   position: fixed;
   display: none;
