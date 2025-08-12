@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Nunta Adina & Ionuț</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- Bandă cu avion -->
   <div class="header-image">
-    <img src="Avion-imagini-avioane-foto-avion-fotografii-avioane-hd-airplane-cer-nori-airplanes-18.jpg" alt="Avion">
+    <img src="Avion-imagini-avioane-foto-avion-fotografii-avioane-hd-airplane-cer-nori-airplanes-18.jpg" alt="Avion" />
   </div>
 
   <!-- Titlu -->
@@ -21,15 +21,31 @@
   <!-- Încărcare poză -->
   <section class="upload-section">
     <h2>Încarcă o poză de la nuntă</h2>
-    <input type="file" id="fileInput">
+    <input type="file" id="fileInput" accept="image/*" />
     <button onclick="uploadImage()">Încarcă poza</button>
   </section>
 
-  <!-- Galerie -->
+  <!-- Galerie cu 2 poze crossfade -->
   <section class="gallery-section">
     <h2>Galerie de selfie-uri</h2>
-    <div id="photoSlider"></div>
+    <div id="photoSlider" class="photo-slider">
+      <!-- Imaginile se vor insera din JS -->
+    </div>
+    <button id="showAllBtn">Vezi toate selfie-urile</button>
   </section>
+
+  <!-- Galerie completă (ascunsă inițial) -->
+  <section class="all-gallery-section hidden">
+    <h2>Toate selfie-urile</h2>
+    <div id="allPhotosGrid" class="all-photos-grid"></div>
+    <button id="closeAllBtn">Închide galeria</button>
+  </section>
+
+  <!-- Modal poza mare -->
+  <div id="modal" class="modal hidden">
+    <span id="modalClose" class="modal-close">&times;</span>
+    <img id="modalImg" class="modal-img" alt="Poză mare" />
+  </div>
 
   <script src="script.js"></script>
 </body>
