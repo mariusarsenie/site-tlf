@@ -1,25 +1,44 @@
+/* Fundal cer */
 body {
   font-family: Arial, sans-serif;
-  background-color: #ffe6f0;
+  background: url("fundal-cer.jpg") no-repeat center center fixed;
+  background-size: cover;
   margin: 0;
   padding: 0;
   text-align: center;
+  color: #003366; /* Albastru închis pentru contrast pe cer */
 }
 
+/* Banda cu avion */
+.header-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Titlu */
 header {
-  background-color: #d78ac4;
+  background: rgba(255, 255, 255, 0.6);
   padding: 20px;
-  color: white;
+  border-radius: 10px;
+  margin: 10px auto;
+  display: inline-block;
 }
 
 header h1 {
   margin: 0;
+  font-size: 2rem;
 }
 
 .upload-section, .gallery-section {
   margin: 20px 0;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 15px;
+  border-radius: 10px;
+  display: inline-block;
 }
 
+/* Galerie cu fade */
 #photoSlider {
   display: flex;
   justify-content: center;
@@ -33,16 +52,17 @@ header h1 {
   object-fit: cover;
   border-radius: 15px;
   box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
-  transition: transform 0.5s ease;
+  animation: fadeIn 1s ease-in-out;
 }
 
-#photoSlider img:hover {
-  transform: scale(1.05);
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 button {
   padding: 8px 16px;
-  background-color: #d78ac4;
+  background-color: #003366;
   color: white;
   border: none;
   border-radius: 8px;
@@ -50,5 +70,5 @@ button {
 }
 
 button:hover {
-  background-color: #c46eb3;
+  background-color: #00509e;
 }
