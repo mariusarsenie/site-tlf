@@ -1,20 +1,14 @@
-/* Fundal cer */
 body {
   font-family: Arial, sans-serif;
-  background: url("sky-with-clouds-1587031941zje.jpg") no-repeat center center fixed;
-  background-size: cover;
   margin: 0;
   padding: 0;
-  text-align: center;
-  color: #003366; /* Albastru închis pentru contrast pe cer */
 }
 
-/* Container imagine avion + text */
 .header-image {
   position: relative;
   width: 100%;
-  height: auto;
-  margin-bottom: 5px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .header-image img {
@@ -23,148 +17,76 @@ body {
   display: block;
 }
 
-/* Text suprapus peste avion - font mai mic, adaptat să nu depășească poza */
 .text-on-image {
   position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  font-size: 1.8rem; /* mai mic */
+  top: 10%;
+  width: 100%;
+  text-align: center;
+  font-size: 2.5rem;
   font-weight: bold;
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
-  pointer-events: none;
-  user-select: none;
-  white-space: nowrap;
-  max-width: 90%; /* să nu depășească lățimea imaginii */
-  overflow-wrap: break-word;
-  text-align: center;
-  z-index: 10;
-}
-
-/* Data sub poza avion */
-.date-under-image {
   color: white;
-  font-size: 1rem; /* mult mai mic */
-  font-weight: 400;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+  pointer-events: none;
+}
+
+.date-on-image {
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
   text-align: center;
-  user-select: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+  pointer-events: none;
 }
 
-/* Secțiuni încărcare + galerie */
-.upload-section,
-.gallery-section {
+/* Stiluri pentru restul paginii (optional) */
+
+.upload-section, .gallery-section, .all-photos-section {
+  max-width: 900px;
   margin: 20px auto;
-  background: rgba(255, 255, 255, 0.6);
-  padding: 15px;
-  border-radius: 10px;
-  max-width: 400px;
-  display: block;
+  padding: 10px;
 }
 
-/* Galerie cu fade, poze mai mici pe telefon */
-#photoSlider {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 15px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  scrollbar-width: none; /* Firefox */
-}
-
-#photoSlider::-webkit-scrollbar {
-  display: none; /* Chrome */
+.upload-section h2, .gallery-section h2, .all-photos-section h2 {
+  text-align: center;
 }
 
 #photoSlider img {
-  width: 140px;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 15px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 1s ease-in-out;
+  max-width: 45%;
+  margin: 0 2%;
   cursor: pointer;
-  flex-shrink: 0;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-button {
-  padding: 8px 16px;
-  background-color: #003366;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-button:hover {
-  background-color: #00509e;
-}
-
-/* Galerie completă */
-.all-photos-section {
-  margin: 20px auto;
-  max-width: 90vw;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-#allPhotosGallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
-  max-height: 70vh;
-  overflow-y: auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
 #allPhotosGallery img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 12px;
+  width: 120px;
+  margin: 5px;
   cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-#allPhotosGallery img:hover {
-  transform: scale(1.1);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
 /* Popup imagine mare */
+
 .image-popup {
-  position: fixed;
   display: none;
-  justify-content: center;
-  align-items: center;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 9999;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  z-index: 1000;
 }
 
 .image-popup img {
   max-width: 90%;
   max-height: 90%;
-  border-radius: 15px;
-  box-shadow: 0 0 20px black;
+  border-radius: 8px;
 }
-
