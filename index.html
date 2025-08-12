@@ -3,53 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nunta Adina & Ionuț</title>
+  <title>Nunta Adina & Dada</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Bandă cu avion -->
+  <!-- Container cu poza avion și text suprapus -->
   <div class="header-image">
     <img src="Avion-imagini-avioane-foto-avion-fotografii-avioane-hd-airplane-cer-nori-airplanes-18.jpg" alt="Avion" />
+    <div class="text-on-image">Nunta Adina și Dada</div>
   </div>
 
-  <!-- Titlu -->
-  <header>
-    <h1>Nunta Adina & Ionuț</h1>
+  <!-- Titlu și data - am ascuns, fiindcă textul e acum peste poza -->
+  <!-- <header>
+    <h1>Nunta Adina & Dada</h1>
     <p>25 Octombrie 2025</p>
-  </header>
+  </header> -->
 
   <!-- Încărcare poză -->
   <section class="upload-section">
     <h2>Încarcă o poză de la nuntă</h2>
-
-    <!-- Buton pentru poză cu camera -->
-    <input type="file" accept="image/*" capture="environment" id="cameraInput" style="display:none" onchange="handleCameraInput(event)" />
-    <button onclick="document.getElementById('cameraInput').click()">Fă o poză cu camera</button>
-
-    <!-- Buton pentru a alege poză din galerie -->
-    <input type="file" accept="image/*" id="fileInput" style="display:none" onchange="handleFileInput(event)" />
-    <button onclick="document.getElementById('fileInput').click()">Alege o poză din galerie</button>
-
-    <!-- Buton pentru galerie completă -->
-    <button onclick="toggleAllGallery()">Vezi toate pozele</button>
+    <input type="file" id="fileInput" accept="image/*" capture="environment" />
+    <button onclick="uploadImage()">Încarcă poza</button>
   </section>
 
-  <!-- Galerie slider -->
+  <!-- Galerie mică (slider) -->
   <section class="gallery-section">
     <h2>Galerie de selfie-uri</h2>
     <div id="photoSlider"></div>
+    <button id="showAllBtn" onclick="toggleGallery()">Vezi toate pozele</button>
   </section>
 
-  <!-- Galerie toate pozele (ascunsă inițial) -->
-  <section class="all-gallery-section" style="display:none;">
+  <!-- Galerie mare, inițial ascunsă -->
+  <section class="gallery-all-section hidden">
     <h2>Toate pozele</h2>
-    <div id="allGallery" class="all-gallery"></div>
+    <div id="galleryAll"></div>
+    <button onclick="toggleGallery()">Închide galeria</button>
   </section>
-
-  <!-- Modal pentru poza mărită -->
-  <div id="modalOverlay" class="modal-overlay" style="display:none" onclick="closeModal()">
-    <img id="modalImage" class="modal-image" src="" alt="Poză mare" />
-  </div>
 
   <script src="script.js"></script>
 </body>
