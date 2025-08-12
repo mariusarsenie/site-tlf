@@ -7,39 +7,45 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Banda cu avion si text peste -->
+  <!-- Bandă cu avion și text peste -->
   <div class="header-image">
-    <img src="Avion-imagini-avioane-foto-avion-fotografii-avioane-hd-airplane-cer-nori-airplanes-18.jpg" alt="Avion" />
-    <div class="header-text">
-      <h1>Nunta Adina & Ionuț</h1>
-      <p class="wedding-date">25 Octombrie 2025</p>
-    </div>
+    <img
+      src="Avion-imagini-avioane-foto-avion-fotografii-avioane-hd-airplane-cer-nori-airplanes-18.jpg"
+      alt="Avion"
+    />
+    <div class="text-on-image">Nunta Adina și Ionuț</div>
   </div>
 
-  <!-- Sectiune incarcare poza -->
+  <!-- Data sub poza avion -->
+  <div class="date-under-image">25 Octombrie 2025</div>
+
+  <!-- Încărcare poză -->
   <section class="upload-section">
     <h2>Încarcă o poză de la nuntă</h2>
-    <input type="file" id="fileInput" accept="image/*" capture="environment" />
-    <button onclick="uploadImage()">Încarcă poza</button>
+    <button onclick="document.getElementById('cameraInput').click()">Fă poză cu camera</button>
+    <button onclick="document.getElementById('galleryInput').click()">Alege din galerie</button>
+
+    <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none" />
+    <input type="file" id="galleryInput" accept="image/*" style="display:none" />
   </section>
 
-  <!-- Galerie animata cu 2 poze -->
+  <!-- Galerie -->
   <section class="gallery-section">
     <h2>Galerie de selfie-uri</h2>
     <div id="photoSlider"></div>
-    <button id="showAllBtn">Vezi toate pozele</button>
+    <button id="viewAllBtn" onclick="showAllPhotos()">Vezi toate pozele</button>
   </section>
 
-  <!-- Galerie completa (ascunsa initial) -->
-  <section class="gallery-fullscreen" id="galleryFullscreen" style="display:none;">
-    <button id="closeGalleryBtn">&times; Închide galeria</button>
-    <div id="allPhotos"></div>
+  <!-- Galerie completă -->
+  <section id="allPhotosSection" class="all-photos-section" style="display:none;">
+    <h2>Toate pozele</h2>
+    <button onclick="closeAllPhotos()">Înapoi</button>
+    <div id="allPhotosGallery"></div>
   </section>
 
-  <!-- Popup poza mare -->
-  <div class="popup-overlay" id="popupOverlay" style="display:none;">
-    <span class="popup-close" id="popupClose">&times;</span>
-    <img id="popupImage" src="" alt="Poză mare" />
+  <!-- Popup imagine mare -->
+  <div id="imagePopup" class="image-popup" onclick="closePopup()">
+    <img id="popupImg" src="" alt="Poza mărită" />
   </div>
 
   <script src="script.js"></script>
